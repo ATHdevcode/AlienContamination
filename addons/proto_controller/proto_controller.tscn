@@ -1,0 +1,173 @@
+[gd_scene load_steps=17 format=3 uid="uid://bs72ogkvdd7d6"]
+
+[ext_resource type="Script" path="res://addons/proto_controller/proto_controller.gd" id="1_ucva2"]
+[ext_resource type="Script" path="res://addons/proto_controller/canvas_layer.gd" id="2_bekbc"]
+[ext_resource type="Texture2D" uid="uid://b50x26my3dau2" path="res://assets/pointer.png" id="3_0pc8c"]
+[ext_resource type="AudioStream" uid="uid://cu8yut5vbv5nd" path="res://sfx/shooteffect.wav" id="5_2ik8b"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="5_npryi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
+albedo_color = Color(0.91806, 0.575202, 0.222449, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbco0"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ucva2"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iof21"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_07h1l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xtjws"]
+bg_color = Color(0, 0.172549, 0.239216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_82w76"]
+bg_color = Color(0.853682, 0.48156, 0.417437, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6773k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnqcs"]
+bg_color = Color(0.565234, 0.14273, 0.238216, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 3
+border_width_bottom = 1
+border_color = Color(0.908079, 0.728237, 0.935898, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7xosv"]
+font_size = 38
+outline_size = 5
+outline_color = Color(0.727398, 0.152421, 0.360388, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_apoi5"]
+radius = 1.0
+height = 4.0
+
+[node name="player" type="CharacterBody3D"]
+collision_layer = 4
+floor_stop_on_slope = false
+script = ExtResource("1_ucva2")
+input_left = "a"
+input_right = "d"
+input_forward = "w"
+input_back = "s"
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+material_override = SubResource("StandardMaterial3D_iof21")
+material_overlay = SubResource("StandardMaterial3D_tbco0")
+cast_shadow = 0
+mesh = SubResource("CapsuleMesh_ucva2")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_iof21")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+
+[node name="Head" type="Node3D" parent="SpringArm3D"]
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 3)
+current = true
+
+[node name="coolof" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="hole" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.383196, 0.904525, -0.453864)
+
+[node name="gun" type="MeshInstance3D" parent="hole"]
+transform = Transform3D(0.337011, 0, 0, 0, -2.47039e-08, -0.557303, 0, 0.565159, -2.43605e-08, -0.0444932, 0.0939701, 0.453864)
+mesh = SubResource("CapsuleMesh_07h1l")
+skeleton = NodePath("../..")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("2_bekbc")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 5.0
+offset_bottom = 5.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/ColorRect"]
+texture = ExtResource("3_0pc8c")
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+offset_left = -24.0
+offset_top = 432.0
+offset_right = 296.0
+offset_bottom = 640.0
+color = Color(1, 1, 1, 0)
+
+[node name="ProgressBar2" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 336.0
+offset_bottom = 88.0
+theme_override_styles/background = SubResource("StyleBoxFlat_xtjws")
+theme_override_styles/fill = SubResource("StyleBoxFlat_82w76")
+value = 100.0
+show_percentage = false
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 336.0
+offset_bottom = 88.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_6773k")
+theme_override_styles/fill = SubResource("StyleBoxFlat_wnqcs")
+value = 100.0
+
+[node name="Virtual Joystick" parent="CanvasLayer" instance=ExtResource("5_npryi")]
+offset_left = 16.0
+offset_top = -296.0
+offset_right = 316.0
+offset_bottom = 4.0
+visibility_mode = 1
+action_left = "a"
+action_right = "d"
+action_up = "w"
+action_down = "s"
+
+[node name="Virtual Joystick2" parent="CanvasLayer" instance=ExtResource("5_npryi")]
+offset_left = 904.0
+offset_top = -294.0
+offset_right = 1204.0
+offset_bottom = 6.0
+visibility_mode = 1
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 984.0
+offset_top = 16.0
+offset_right = 1075.0
+offset_bottom = 61.0
+text = "KILLS:"
+label_settings = SubResource("LabelSettings_7xosv")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_2ik8b")
+
+[node name="hitarea" type="Area3D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hitarea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_apoi5")
+
+[node name="kill" type="Timer" parent="hitarea"]
+wait_time = 0.4
+
+[connection signal="timeout" from="coolof" to="." method="_on_coolof_timeout"]
+[connection signal="area_entered" from="hitarea" to="." method="_on_hitarea_area_entered"]
+[connection signal="area_exited" from="hitarea" to="." method="_on_hitarea_area_exited"]
+[connection signal="body_entered" from="hitarea" to="." method="_on_hitarea_body_entered"]
+[connection signal="body_exited" from="hitarea" to="." method="_on_hitarea_body_exited"]
+[connection signal="timeout" from="hitarea/kill" to="." method="_on_timer_timeout"]

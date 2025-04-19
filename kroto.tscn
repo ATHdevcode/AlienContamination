@@ -1,0 +1,212 @@
+[gd_scene load_steps=18 format=3 uid="uid://b53cj0thn1oe1"]
+
+[ext_resource type="Script" path="res://kroto.gd" id="1_rxhpc"]
+[ext_resource type="Texture2D" uid="uid://c7tqykiakauwn" path="res://assets/smoke_02.png" id="2_yjay0"]
+[ext_resource type="Texture2D" uid="uid://o6adprb373f4" path="res://assets/fire_01.png" id="3_vpg5g"]
+[ext_resource type="AudioStream" uid="uid://cswb3p74jsqui" path="res://sfx/blasteffect.wav" id="4_qgyl8"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ctji6"]
+radius = 0.885593
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qworh"]
+albedo_color = Color(0.0836112, 0.0133363, 0.110595, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ejnqk"]
+albedo_color = Color(0.0447295, 0.261781, 0.453454, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t2soi"]
+albedo_color = Color(0.784765, 0, 0.0362731, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t0cxc"]
+albedo_color = Color(2, 0.037, 0.14, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tq6kv"]
+radius = 1.63993
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hnr8q"]
+transparency = 1
+albedo_texture = ExtResource("2_yjay0")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_m162n"]
+material = SubResource("StandardMaterial3D_hnr8q")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tw75n"]
+transparency = 1
+albedo_color = Color(2, 0.173, 0.129, 1)
+albedo_texture = ExtResource("3_vpg5g")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_v052x"]
+material = SubResource("StandardMaterial3D_tw75n")
+size = Vector2(3, 3)
+
+[sub_resource type="Animation" id="Animation_vispc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("boom:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_7mwqi"]
+resource_name = "boom"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("boom:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_unl25"]
+_data = {
+"RESET": SubResource("Animation_vispc"),
+"boom": SubResource("Animation_7mwqi")
+}
+
+[node name="kroto" type="CharacterBody3D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_rxhpc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.720279, 0.478943, 0.332731)
+shape = SubResource("SphereShape3D_ctji6")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(-0.0535264, 0, 1.49904, 0, 1.5, 0, -1.49904, 0, -0.0535264, 0, 0, 0.402527)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.220572, 0, 0)
+polygon = PackedVector2Array(0.0131378, 0.315226, 0.749482, 0.578678, 0.458768, 0.357779, 0.783154, -0.00375146)
+material = SubResource("StandardMaterial3D_qworh")
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(-0.00281879, -0.128126, 0, 0.0753639, -0.00479219, 0, 0, 0, 0.107542, 0.486562, 0.480321, 0)
+polygon = PackedVector2Array(0.793489, 0.164857, -2.91549, -1.47657, 0.458768, 0.357779, 0.639897, 0.283686)
+material = SubResource("StandardMaterial3D_qworh")
+
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(-0.00281879, -0.128126, 0, 0.0753639, -0.00479219, 0, 0, 0, 0.107542, 0.486562, 0.480321, -0.802581)
+polygon = PackedVector2Array(0.793489, 0.164857, -2.91549, -1.47657, 0.458768, 0.357779, 0.639897, 0.283686)
+material = SubResource("StandardMaterial3D_qworh")
+
+[node name="CSGPolygon3D4" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(-0.00281879, -0.128125, 0, -0.0752913, 0.00478757, -0.00472092, 0.00330836, -0.00021037, -0.107438, 0.576149, 0.0627352, -0.971206)
+polygon = PackedVector2Array(0.793489, 0.164857, -2.91549, -1.47657, 0.458768, 0.357779, 0.639897, 0.283686)
+material = SubResource("StandardMaterial3D_qworh")
+
+[node name="CSGPolygon3D5" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(-0.00281879, -0.128125, 0, -0.0752913, 0.00478757, -0.00472092, 0.00330836, -0.00021037, -0.107438, 0.576149, 0.0979673, -0.169398)
+polygon = PackedVector2Array(0.793489, 0.164857, -2.91549, -1.47657, 0.458768, 0.357779, 0.639897, 0.283686)
+material = SubResource("StandardMaterial3D_qworh")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0731388, 0.335466, -0.490813)
+radius = 0.566037
+material = SubResource("StandardMaterial3D_ejnqk")
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.106866, 0.327289, -0.490813)
+radius = 0.425681
+material = SubResource("StandardMaterial3D_t2soi")
+
+[node name="CSGPolygon3D6" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(-0.00183626, 0, -0.0961278, 0, 0.27178, 0, 0.156091, 0, -0.00113085, 0.328452, 0.73258, -0.0111352)
+polygon = PackedVector2Array(0, 0, 0, 1, -1.96696, -0.578115, 1, 0)
+material = SubResource("StandardMaterial3D_t0cxc")
+
+[node name="CSGPolygon3D7" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.0109761, 0, 0.0958965, 0, 0.27178, 0, -0.155715, 0, 0.00675956, 0.412414, 0.73258, -0.920538)
+polygon = PackedVector2Array(0, 0, 0, 1, -1.96696, -0.578115, 1, 0)
+material = SubResource("StandardMaterial3D_t0cxc")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.33893, 1.08433, -0.305264)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.202415, 1.08433, -0.34683)
+
+[node name="hit" type="Area3D" parent="." groups=["hurt"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.894004, 0.450953, 0.270448)
+shape = SubResource("SphereShape3D_tq6kv")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+transform = Transform3D(-0.12206, -0.992523, 0, 0.992523, -0.12206, 0, 0, 0, 1, -0.571616, 0.878527, -0.930995)
+emitting = false
+amount = 12
+one_shot = true
+mesh = SubResource("QuadMesh_m162n")
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 3.0
+
+[node name="boom" type="CPUParticles3D" parent="."]
+transform = Transform3D(-0.476821, -0.879, 0, 0.879, -0.476821, 0, 0, 0, 1, -0.588837, 0.530907, 0)
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 0.5
+mesh = SubResource("QuadMesh_v052x")
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+scale_amount_min = 1.2
+scale_amount_max = 1.2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_unl25")
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_qgyl8")
+
+[connection signal="area_entered" from="hit" to="." method="_on_hit_area_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

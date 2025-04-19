@@ -1,0 +1,100 @@
+[gd_scene load_steps=10 format=3 uid="uid://xl7qlrvd4wvw"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_l2d3o"]
+[ext_resource type="Texture2D" uid="uid://wdmhdw4wnktr" path="res://cover.png" id="1_nktx7"]
+[ext_resource type="FontFile" uid="uid://d38sawp4yl5h3" path="res://Lilita_One/LilitaOne-Regular.ttf" id="2_1kbpl"]
+[ext_resource type="AudioStream" uid="uid://bigwq33rxf0ck" path="res://sfx/Alien Contamination.mp3" id="4_3io5k"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wqf0i"]
+font = ExtResource("2_1kbpl")
+font_size = 70
+font_color = Color(0.691184, 0.639856, 0.403322, 1)
+shadow_size = 3
+
+[sub_resource type="LabelSettings" id="LabelSettings_o4tej"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cc514"]
+font = ExtResource("2_1kbpl")
+font_size = 19
+
+[sub_resource type="LabelSettings" id="LabelSettings_hjs4i"]
+font = ExtResource("2_1kbpl")
+font_size = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ulyy0"]
+bg_color = Color(0.829417, 0.0837863, 0.218259, 1)
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_l2d3o")
+
+[node name="Cover" type="Sprite2D" parent="."]
+position = Vector2(600, 346)
+texture = ExtResource("1_nktx7")
+
+[node name="title" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 152.0
+offset_right = 786.0
+offset_bottom = 233.0
+text = "ALIEN CONTAMNIATION"
+label_settings = SubResource("LabelSettings_wqf0i")
+
+[node name="version" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 216.0
+offset_right = 786.0
+offset_bottom = 297.0
+text = "Alpha versiom 0.1"
+label_settings = SubResource("LabelSettings_o4tej")
+
+[node name="author" type="Label" parent="."]
+offset_left = 1056.0
+offset_top = 632.0
+offset_right = 1810.0
+offset_bottom = 713.0
+text = "By AuraCrush"
+label_settings = SubResource("LabelSettings_o4tej")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 120.0
+offset_top = 528.0
+offset_right = 874.0
+offset_bottom = 609.0
+text = "Camera Senstivity:"
+label_settings = SubResource("LabelSettings_cc514")
+
+[node name="kills" type="Label" parent="."]
+offset_left = 824.0
+offset_top = 336.0
+offset_right = 1578.0
+offset_bottom = 417.0
+text = "KILLS:0"
+label_settings = SubResource("LabelSettings_hjs4i")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 112.0
+offset_top = 384.0
+offset_right = 440.0
+offset_bottom = 440.0
+theme_override_fonts/font = ExtResource("2_1kbpl")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_ulyy0")
+text = "PLAY"
+
+[node name="HSlider" type="HSlider" parent="."]
+offset_left = 120.0
+offset_top = 568.0
+offset_right = 448.0
+offset_bottom = 584.0
+min_value = 4.0
+max_value = 20.0
+value = 8.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_3io5k")
+autoplay = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
