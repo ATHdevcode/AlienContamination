@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://d0nqwfvqxfvx3"]
+
+[ext_resource type="Script" path="res://bullet.gd" id="1_g4580"]
+[ext_resource type="Texture2D" uid="uid://dtw5w3hebwbwt" path="res://assets/flare_01.png" id="2_7rs78"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dm022"]
+shading_mode = 0
+albedo_color = Color(2, 0.06, 0.343, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_angj1"]
+material = SubResource("StandardMaterial3D_dm022")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_y6dd7"]
+radius = 0.173859
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqla4"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.737255, 0.00392157, 1, 1)
+albedo_texture = ExtResource("2_7rs78")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_tw1vb"]
+material = SubResource("StandardMaterial3D_eqla4")
+
+[node name="hellet" type="Area3D" groups=["shell"]]
+script = ExtResource("1_g4580")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("SphereMesh_angj1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_y6dd7")
+
+[node name="free" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+emitting = false
+amount = 10
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.31
+mesh = SubResource("QuadMesh_tw1vb")
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(1, 1, 0)
+spread = 62.03
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+
+[node name="full" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0117249, -0.0262099)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="free" to="." method="_on_free_timeout"]
+[connection signal="timeout" from="full" to="." method="_on_full_timeout"]

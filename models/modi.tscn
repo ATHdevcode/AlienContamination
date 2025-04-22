@@ -1,0 +1,254 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdlgw3q7twh5l"]
+
+[ext_resource type="PackedScene" uid="uid://d2sl3cc7p1ihd" path="res://models/futuristic low poly city by niko.fbx" id="1_hixgq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2tkwa"]
+albedo_color = Color(0.0911214, 0.0911215, 0.0911214, 1)
+
+[node name="futuristic low poly city by niko" instance=ExtResource("1_hixgq")]
+
+[node name="Cube_045" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_029" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_041" parent="." index="2"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_044" parent="." index="3"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_010" parent="." index="4"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_014" parent="." index="5"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_026" parent="." index="6"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_031" parent="." index="7"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_036" parent="." index="8"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_012" parent="." index="9"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cylinder_017" parent="." index="10"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cylinder_009" parent="." index="11"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cylinder_008" parent="." index="12"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cylinder_007" parent="." index="13"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cylinder_004" parent="." index="14"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cylinder_005" parent="." index="15"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_010" parent="." index="16"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_012" parent="." index="17"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cylinder_003" parent="." index="18"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_011" parent="." index="19"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_009" parent="." index="20"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_056" parent="." index="21"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_055" parent="." index="22"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_054" parent="." index="23"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_053" parent="." index="24"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_006" parent="." index="25"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_032" parent="." index="26"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_027" parent="." index="27"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_028" parent="." index="28"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_049" parent="." index="29"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_039" parent="." index="30"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_038" parent="." index="31"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_001" parent="." index="32"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_035" parent="." index="33"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_033" parent="." index="34"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_025" parent="." index="35"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_024" parent="." index="36"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_023" parent="." index="37"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_022" parent="." index="38"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_021" parent="." index="39"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_020" parent="." index="40"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_019" parent="." index="41"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_017" parent="." index="42"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_016" parent="." index="43"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_013" parent="." index="44"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_011" parent="." index="45"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_005" parent="." index="46"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_003" parent="." index="47"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_002" parent="." index="48"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube" parent="." index="49"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_001" parent="." index="50"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_006" parent="." index="51"]
+transform = Transform3D(613.163, 0, 0, 0, -7.30947e-05, 613.163, 0, -613.163, -7.30947e-05, -11.4843, 21.4524, 15.0293)
+visible = false
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_009" parent="." index="52"]
+visible = false
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle" parent="." index="53"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_037" parent="." index="54"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_040" parent="." index="55"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cylinder" parent="." index="56"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cylinder_002" parent="." index="57"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_008" parent="." index="58"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cylinder_006" parent="." index="59"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_015" parent="." index="60"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_018" parent="." index="61"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_046" parent="." index="62"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_047" parent="." index="63"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_062" parent="." index="64"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_063" parent="." index="65"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_064" parent="." index="66"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_065" parent="." index="67"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_066" parent="." index="68"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_067" parent="." index="69"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_002" parent="." index="70"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_003" parent="." index="71"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_004" parent="." index="72"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_005" parent="." index="73"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_007" parent="." index="74"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_013" parent="." index="75"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_014" parent="." index="76"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_015" parent="." index="77"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_016" parent="." index="78"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Circle_017" parent="." index="79"]
+material_override = SubResource("StandardMaterial3D_2tkwa")
+
+[node name="Cube_004" parent="." index="80"]
+material_override = SubResource("StandardMaterial3D_2tkwa")

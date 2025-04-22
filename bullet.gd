@@ -27,3 +27,7 @@ func _on_body_entered(body: Node3D) -> void:
 func _on_free_timeout() -> void:
 	
 	queue_free()
+
+
+func _on_full_timeout() -> void:
+	queue_free()

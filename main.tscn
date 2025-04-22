@@ -39,7 +39,7 @@ offset_left = 32.0
 offset_top = 152.0
 offset_right = 786.0
 offset_bottom = 233.0
-text = "ALIEN CONTAMNIATION"
+text = "ALIEN CONTAMINATION"
 label_settings = SubResource("LabelSettings_wqf0i")
 
 [node name="version" type="Label" parent="."]
@@ -47,7 +47,7 @@ offset_left = 32.0
 offset_top = 216.0
 offset_right = 786.0
 offset_bottom = 297.0
-text = "Alpha versiom 0.1"
+text = "Alpha version 0.2"
 label_settings = SubResource("LabelSettings_o4tej")
 
 [node name="author" type="Label" parent="."]

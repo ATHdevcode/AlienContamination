@@ -3,7 +3,7 @@ extends Marker3D
 
 const KROTO = preload("res://kroto.tscn")
 
-var max_spawn = 1;
+var max_spawn = -1;
 
 func _ready() -> void:
 	Global.totalenemy = 0;

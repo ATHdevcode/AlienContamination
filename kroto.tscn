@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://b53cj0thn1oe1"]
+[gd_scene load_steps=19 format=3 uid="uid://b53cj0thn1oe1"]
 
 [ext_resource type="Script" path="res://kroto.gd" id="1_rxhpc"]
 [ext_resource type="Texture2D" uid="uid://c7tqykiakauwn" path="res://assets/smoke_02.png" id="2_yjay0"]
 [ext_resource type="Texture2D" uid="uid://o6adprb373f4" path="res://assets/fire_01.png" id="3_vpg5g"]
 [ext_resource type="AudioStream" uid="uid://cswb3p74jsqui" path="res://sfx/blasteffect.wav" id="4_qgyl8"]
+[ext_resource type="Texture2D" uid="uid://b50x26my3dau2" path="res://assets/pointer.png" id="5_5xrbq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ctji6"]
 radius = 0.885593
@@ -31,14 +32,14 @@ billboard_mode = 1
 [sub_resource type="QuadMesh" id="QuadMesh_m162n"]
 material = SubResource("StandardMaterial3D_hnr8q")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tw75n"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gp8qy"]
 transparency = 1
 albedo_color = Color(2, 0.173, 0.129, 1)
 albedo_texture = ExtResource("3_vpg5g")
 billboard_mode = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_v052x"]
-material = SubResource("StandardMaterial3D_tw75n")
+material = SubResource("StandardMaterial3D_gp8qy")
 size = Vector2(3, 3)
 
 [sub_resource type="Animation" id="Animation_vispc"]
@@ -101,7 +102,7 @@ _data = {
 "boom": SubResource("Animation_7mwqi")
 }
 
-[node name="kroto" type="CharacterBody3D"]
+[node name="kroto" type="CharacterBody3D" groups=["kroto"]]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_rxhpc")
@@ -207,6 +208,20 @@ one_shot = true
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_qgyl8")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Pointer" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+modulate = Color(1, 1, 1, 0.265)
+position = Vector2(450, 167)
+scale = Vector2(6, 6)
+texture = ExtResource("5_5xrbq")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.659863, 0.29715, 0.638257)
+
 [connection signal="area_entered" from="hit" to="." method="_on_hit_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

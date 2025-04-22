@@ -1,0 +1,333 @@
+[gd_scene load_steps=16 format=3 uid="uid://bi1yyogptue1p"]
+
+[ext_resource type="Script" path="res://kroto_alpha.gd" id="1_fl8bl"]
+[ext_resource type="FontFile" uid="uid://d38sawp4yl5h3" path="res://Lilita_One/LilitaOne-Regular.ttf" id="2_pvo52"]
+[ext_resource type="Texture2D" uid="uid://o6adprb373f4" path="res://assets/fire_01.png" id="3_atssx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pqibe"]
+albedo_color = Color(0.116127, 0.116127, 0.116127, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7g82h"]
+albedo_color = Color(0.203922, 0.243137, 0.513726, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8dkk6"]
+albedo_color = Color(2, 0.037, 0.14, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xqk8p"]
+bg_color = Color(0.351817, 0.00367859, 0.328272, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_dyuhi"]
+font = ExtResource("2_pvo52")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pb2vu"]
+radius = 2.67635
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3yae8"]
+radius = 1.04133
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_svyy2"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.847931, 0.117497, 0.38673, 1)
+albedo_texture = ExtResource("3_atssx")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_slani"]
+material = SubResource("StandardMaterial3D_svyy2")
+size = Vector2(3, 3)
+
+[sub_resource type="Animation" id="Animation_4bq4m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("boom:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CSGCombiner3D/CSGSphere3D:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.203922, 0.243137, 0.513726, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CSGCylinder3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.962817, 0, -0.831125)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CSGCombiner3D/OmniLight3D:light_energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CSGCombiner3D/OmniLight3D2:light_energy")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_dp87f"]
+resource_name = "dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("boom:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CSGCombiner3D/CSGSphere3D:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.203922, 0.243137, 0.513726, 1), Color(0.0352941, 0.0156863, 0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CSGCylinder3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.962817, 0, -0.831125), Vector3(0.962817, -0.748759, -0.831125)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CSGCombiner3D/OmniLight3D:light_energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CSGCombiner3D/OmniLight3D2:light_energy")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_plvlh"]
+_data = {
+"RESET": SubResource("Animation_4bq4m"),
+"dead": SubResource("Animation_dp87f")
+}
+
+[node name="krotoAlpha" type="CharacterBody3D"]
+script = ExtResource("1_fl8bl")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+editor_description = "343e83"
+transform = Transform3D(-0.0523011, 0, 0.998631, 0, 1, 0, -0.998631, 0, -0.0523011, 0.962817, 0, -0.831125)
+radius = 3.0
+height = 0.594152
+material = SubResource("StandardMaterial3D_pqibe")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCylinder3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00515306, 0)
+operation = 2
+radius = 2.38817
+height = 0.623245
+
+[node name="bullethole" type="Node3D" parent="CSGCylinder3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.134866)
+
+[node name="Marker3D" type="Marker3D" parent="CSGCylinder3D/bullethole"]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, 2.93992, 0.0362078, 1.60919)
+
+[node name="Marker3D2" type="Marker3D" parent="CSGCylinder3D/bullethole"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.27406, 0.112857, 3.01318)
+
+[node name="Marker3D3" type="Marker3D" parent="CSGCylinder3D/bullethole"]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, -1.40642, 0.0398993, 3.19054)
+
+[node name="Marker3D4" type="Marker3D" parent="CSGCylinder3D/bullethole"]
+transform = Transform3D(-0.379844, 0, 0.925051, 0, 1, 0, -0.925051, 0, -0.379844, -3.01731, -0.0628066, 1.44639)
+
+[node name="Marker3D5" type="Marker3D" parent="CSGCylinder3D/bullethole"]
+transform = Transform3D(0.148362, 0, 0.988933, 0, 1, 0, -0.988933, 0, 0.148362, -3.17507, -0.07617, -0.794283)
+
+[node name="Marker3D6" type="Marker3D" parent="CSGCylinder3D/bullethole"]
+transform = Transform3D(0.879333, 0, 0.476208, 0, 1, 0, -0.476208, 0, 0.879333, -1.17507, -0.07617, -2.79428)
+
+[node name="Marker3D7" type="Marker3D" parent="CSGCylinder3D/bullethole"]
+transform = Transform3D(0.405875, 0, -0.913928, 0, 1, 0, 0.913928, 0, 0.405875, 2.91764, 0.057874, -1.24905)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(-0.0523011, 0, 0.998631, 0, 1, 0, -0.998631, 0, -0.0523011, 1.08298, 0, -0.769893)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner3D"]
+editor_description = "343e83
+090400"
+radius = 2.0
+material = SubResource("StandardMaterial3D_7g82h")
+
+[node name="CSGPolygon3D6" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(-0.00183626, 0, -0.0961278, 0, 0.27178, 0, 0.156091, 0, -0.00113085, 1.633, 0.73258, 0.804174)
+polygon = PackedVector2Array(0, 0, 0, 1, -1.96696, -0.578115, 1, 0)
+material = SubResource("StandardMaterial3D_8dkk6")
+
+[node name="CSGPolygon3D7" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.0109761, 0, 0.0958965, 0, 0.27178, 0, -0.155715, 0, 0.00675956, 1.7337, 0.73258, -0.920538)
+polygon = PackedVector2Array(0, 0, 0, 1, -1.96696, -0.578115, 1, 0)
+material = SubResource("StandardMaterial3D_8dkk6")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75599, 0.831106, 0.721246)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7351, 0.743392, -0.847226)
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65701, 0, 0)
+
+[node name="bullet" type="Timer" parent="."]
+wait_time = 0.8
+autostart = true
+
+[node name="turn" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(-0.0523011, 0, 0.998631, 0, 1, 0, -0.998631, 0, -0.0523011, -0.0192724, 0.708898, 2.15838)
+visible = false
+target_position = Vector3(50, 0, 0)
+collide_with_areas = true
+
+[node name="laserpointer" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.992364, -0.01833, -3.46311)
+
+[node name="supper" type="Timer" parent="."]
+wait_time = 11.0
+one_shot = true
+autostart = true
+
+[node name="Timer" type="Timer" parent="supper"]
+wait_time = 3.0
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
+offset_right = 288.0
+offset_bottom = 32.0
+theme_override_styles/background = SubResource("StyleBoxFlat_xqk8p")
+max_value = 200.0
+value = 70.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="CanvasLayer/ProgressBar"]
+layout_mode = 0
+offset_top = -16.0
+offset_right = 82.0
+offset_bottom = 7.0
+text = "Kroto Alpha"
+label_settings = SubResource("LabelSettings_dyuhi")
+
+[node name="ui" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25697, 4.862, -0.963083)
+
+[node name="hitter" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0567939)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hitter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14731, 0, 0.0967222)
+shape = SubResource("SphereShape3D_pb2vu")
+
+[node name="hitter2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.02529)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hitter2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.888992, 0, 4.81524)
+shape = SubResource("SphereShape3D_3yae8")
+
+[node name="boom" type="CPUParticles3D" parent="."]
+transform = Transform3D(-0.476821, -0.879, 0, 0.879, -0.476821, 0, 0, 0, 1, 1.11544, 0.0798729, -1.31486)
+amount = 30
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.5
+mesh = SubResource("QuadMesh_slani")
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+scale_amount_min = 1.2
+scale_amount_max = 1.2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_plvlh")
+}
+
+[node name="remove" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="bullet" to="." method="_on_bullet_timeout"]
+[connection signal="timeout" from="turn" to="." method="_on_turn_timeout"]
+[connection signal="timeout" from="supper" to="." method="_on_supper_timeout"]
+[connection signal="timeout" from="supper/Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="hitter" to="." method="_on_hitter_area_entered"]
+[connection signal="area_entered" from="hitter2" to="." method="_on_hitter_2_area_entered"]
+[connection signal="timeout" from="remove" to="." method="_on_remove_timeout"]

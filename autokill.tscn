@@ -1,0 +1,99 @@
+[gd_scene load_steps=11 format=3 uid="uid://dpj432gkfo61v"]
+
+[ext_resource type="Script" path="res://autokill.gd" id="1_oxxpo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bem4q"]
+albedo_color = Color(0.209659, 0.0606431, 0.0544659, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8hdw0"]
+albedo_color = Color(0.236334, 0.236334, 0.236334, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gx7ci"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.253, 0.668, 0.903, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_04y25"]
+albedo_color = Color(0.724028, 0, 0.174514, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exvrc"]
+albedo_color = Color(0.0142752, 0.0142752, 0.0142752, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pwoqd"]
+height = 0.396422
+radius = 0.861781
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mv51w"]
+radius = 13.2468
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ojoc8"]
+shading_mode = 0
+albedo_color = Color(5.77569e-07, 0.386018, 0.992915, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_inckn"]
+shading_mode = 0
+albedo_color = Color(5.77569e-07, 0.386018, 0.992915, 1)
+
+[node name="autokill" type="CharacterBody3D"]
+script = ExtResource("1_oxxpo")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+radius = 0.862851
+height = 0.424019
+material = SubResource("StandardMaterial3D_bem4q")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.360526, 0)
+radius = 0.62099
+height = 1.03177
+material = SubResource("StandardMaterial3D_8hdw0")
+
+[node name="gun" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.883696, 0)
+material_overlay = SubResource("StandardMaterial3D_gx7ci")
+material = SubResource("StandardMaterial3D_04y25")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="gun"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.313612, -0.501591)
+radius = 0.0608743
+height = 0.786139
+material = SubResource("StandardMaterial3D_exvrc")
+
+[node name="Marker3D" type="Marker3D" parent="gun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0110131, 0.335343, -0.911874)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0264224)
+shape = SubResource("CylinderShape3D_pwoqd")
+
+[node name="range" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="range"]
+shape = SubResource("SphereShape3D_mv51w")
+
+[node name="coolof" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.596668, 0.528149, 0.252189)
+light_energy = 0.8
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55373, 0.528149, -0.28893)
+light_energy = 0.8
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(0.393525, -0.919314, 4.01845e-08, 0, -4.37114e-08, -1, 0.919314, 0.393525, -1.72015e-08, 0.455873, 0.365506, -0.217163)
+size = Vector3(0.207031, 0.203613, 1)
+material = SubResource("StandardMaterial3D_ojoc8")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.393525, -0.919314, 4.01845e-08, 0, -4.37114e-08, -1, 0.919314, 0.393525, -1.72015e-08, -0.481623, 0.365506, 0.174008)
+size = Vector3(0.207031, 0.203613, 1)
+material = SubResource("StandardMaterial3D_inckn")
+
+[connection signal="body_entered" from="range" to="." method="_on_range_body_entered"]
+[connection signal="body_exited" from="range" to="." method="_on_range_body_exited"]
+[connection signal="timeout" from="coolof" to="." method="_on_coolof_timeout"]

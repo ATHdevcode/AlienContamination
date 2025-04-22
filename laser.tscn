@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://c4f7ojeiu7jl2"]
+
+[ext_resource type="Script" path="res://laser.gd" id="1_s8j8j"]
+[ext_resource type="Shader" path="res://laser.gdshader" id="2_7t8cb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u12p7"]
+render_priority = 0
+shader = ExtResource("2_7t8cb")
+shader_parameter/core_color = Color(1, 0, 0, 1)
+shader_parameter/glow_color = Color(1, 0.5, 0.5, 0.5)
+shader_parameter/laser_width = 0.2
+shader_parameter/core_intensity = 1.0
+shader_parameter/core_length = 1.0
+shader_parameter/glow_fade = 0.1
+shader_parameter/glow_shape = 1.0
+shader_parameter/pulse_speed = 2.0
+shader_parameter/pulse_strength = 0.3
+shader_parameter/pulse_dir_x = 0.0
+shader_parameter/pulse_dir_y = 0.0
+shader_parameter/pulse_dir_z = 1.0
+shader_parameter/min_alpha = 0.1
+shader_parameter/noise_scale = 5.0
+shader_parameter/noise_speed = 1.0
+shader_parameter/noise_strength = 0.1
+shader_parameter/length_noise_scale = 2.0
+shader_parameter/length_noise_speed = 0.5
+shader_parameter/length_noise_strength = 0.05
+shader_parameter/osc_amplitude = 0.05
+shader_parameter/osc_frequency = 5.0
+shader_parameter/osc_speed = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_10yqy"]
+material = SubResource("ShaderMaterial_u12p7")
+top_radius = 0.2
+height = 40.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n438t"]
+render_priority = 0
+shader = ExtResource("2_7t8cb")
+shader_parameter/core_color = Color(1, 0, 0.192157, 1)
+shader_parameter/glow_color = Color(0.901961, 0, 0.0980392, 0.592157)
+shader_parameter/laser_width = 0.2
+shader_parameter/core_intensity = 1.0
+shader_parameter/core_length = 1.0
+shader_parameter/glow_fade = 0.1
+shader_parameter/glow_shape = 1.0
+shader_parameter/pulse_speed = 4.857
+shader_parameter/pulse_strength = 0.3
+shader_parameter/pulse_dir_x = 0.0
+shader_parameter/pulse_dir_y = 0.0
+shader_parameter/pulse_dir_z = 1.0
+shader_parameter/min_alpha = 0.1
+shader_parameter/noise_scale = 5.0
+shader_parameter/noise_speed = 1.0
+shader_parameter/noise_strength = 0.1
+shader_parameter/length_noise_scale = 2.0
+shader_parameter/length_noise_speed = 0.5
+shader_parameter/length_noise_strength = 0.05
+shader_parameter/osc_amplitude = 0.05
+shader_parameter/osc_frequency = 5.0
+shader_parameter/osc_speed = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ksglr"]
+next_pass = SubResource("ShaderMaterial_n438t")
+shading_mode = 0
+albedo_color = Color(2, 0, 0.326, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_tle7t"]
+height = 40.0
+
+[node name="laser" type="Area3D" groups=["ex"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+script = ExtResource("1_s8j8j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 20, 0, 0)
+mesh = SubResource("CylinderMesh_10yqy")
+surface_material_override/0 = SubResource("StandardMaterial3D_ksglr")
+
+[node name="SpotLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(-0.0152013, 0, -0.999885, 0, 1, 0, 0.999885, 0, -0.0152013, 3.26706, -0.0896111, -0.0629027)
+light_color = Color(0.630067, 0.105722, 0.14317, 1)
+light_energy = 1.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 23.1045, 0, 0)
+shape = SubResource("CylinderShape3D_tle7t")
+
+[node name="die" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[connection signal="timeout" from="die" to="." method="_on_die_timeout"]

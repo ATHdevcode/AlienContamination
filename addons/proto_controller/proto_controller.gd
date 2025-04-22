@@ -5,8 +5,14 @@
 
 extends CharacterBody3D
 
+var lockonenabled = 1
+
 const BULLET = preload("res://bullet.tscn")
 var getmouse:Vector2;
+
+var maxbullets = 6;
+var bullets = maxbullets;
+var reloadtime = 1.3;
 
 ## Can we move around?
 @export var can_move : bool = true
@@ -55,28 +61,68 @@ var freeflying : bool = false
 ## IMPORTANT REFERENCES
 @onready var head: Node3D = $SpringArm3D/Head
 @onready var collider: CollisionShape3D = $Collider
+@onready var camera = $SpringArm3D/Head/Camera3D
 
-func _ready() -> void:
-	
-	check_input_mappings()
-	look_rotation.y = rotation.y
-	look_rotation.x = head.rotation.x
 
 
 var ishitground = false
 
 var playerhealth = 100;
 
+var nexLevelUpPoints = 5;
+
+var level = 0;
+
+var levelPoints = 0
+
+var reward = level;
+
 var camerasensetivity = Global.camerssenstivity;
+
+
+
+func _ready() -> void:
+	#camera = $Head2/Camera3D2
+	#head = $Head2
+	$CanvasLayer/Label2.text = str(bullets);
+	
+	$reload.wait_time = reloadtime
+	
+	$CanvasLayer/ProgressBar.max_value = playerhealth;
+	$CanvasLayer/ProgressBar2.max_value = playerhealth;
+	
+	
+	check_input_mappings()
+	look_rotation.y = rotation.y
+	look_rotation.x = head.rotation.x
+
+
+
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		
-		var from = $SpringArm3D/Head/Camera3D.project_ray_origin(event.position)
-		var to = from + $SpringArm3D/Head/Camera3D.project_ray_normal(event.position) * 10
-		getmouse = event.position
+		#manual aim
 		
-		$hole.look_at(to)
+		
+		# auto aim
+		if DisplayServer.is_touchscreen_available() and lockonenabled == 1:
+			var distancese = []
+			for i in get_parent().get_children():
+				if i.is_in_group("kroto"):
+					distancese.append(position.distance_to(i.position))
+			distancese.sort()
+			for i in get_parent().get_children():
+				if i.is_in_group("kroto"):
+					if position.distance_to(i.position) == distancese[0]:
+						$hole.look_at(i.position)
+		else:
+			var from = camera.project_ray_origin(event.position)
+			var to = from + camera.project_ray_normal(event.position) * 10
+			getmouse = event.position
+		
+			$hole.look_at(to)
+		
 		
 		var val:int = $hole.rotation.x
 		
@@ -88,18 +134,35 @@ func _input(event: InputEvent) -> void:
 			
 		
 		
+var firstperson = -1
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Mouse capturing
-	
-	capture_mouse()
+	if not DisplayServer.is_touchscreen_available():
+		capture_mouse()
 	if Input.is_key_pressed(KEY_ESCAPE):
 		release_mouse()
+	
+	if Input.is_action_just_pressed("tog"):
+		firstperson *= -1
+		if firstperson == 1:
+			camera = $Head2/Camera3D2
+			head = $Head2
+			
+			camera.current = true
+			$SpringArm3D/Head/Camera3D.current = false
+		else:
+			camera = $SpringArm3D/Head/Camera3D
+			head = $SpringArm3D/Head
+			
+			camera.current = true
+			$Head2/Camera3D2.current = false
+			
 		
 	
 		
 	
-	print(OS.get_name())
+
 	
 	
 	if mouse_captured and event is InputEventMouseMotion and (OS.get_name() == "Linux" or OS.get_name() == "Windows"):
@@ -131,7 +194,8 @@ func _physics_process(delta: float) -> void:
 
 
 	if Input.is_action_just_pressed("shoot") and ((getmouse.y < 384) or (getmouse.y > 384 and getmouse.x >340 and getmouse.x <  940)):
-		if ishitground:
+		
+		if ishitground and bullets > 0:
 			velocity.y = jump_velocity
 		if $coolof.is_stopped():
 			$coolof.start();
@@ -144,7 +208,7 @@ func _physics_process(delta: float) -> void:
 		get_tree().change_scene_to_file("res://main.tscn");
 	
 	# Apply gravity to velocity
-	print($"CanvasLayer/Virtual Joystick".output)
+	
 	if has_gravity:
 		if not is_on_floor():
 			velocity += get_gravity() * delta
@@ -182,9 +246,13 @@ func _physics_process(delta: float) -> void:
 ## Base of controller rotates around y (left/right). Head rotates around x (up/down).
 ## Modifies look_rotation based on rot_input, then resets basis and rotates by look_rotation.
 func rotate_look(rot_input : Vector2):
+	
 	look_rotation.x -= rot_input.y * look_speed
 	look_rotation.x = clamp(look_rotation.x, deg_to_rad(-85), deg_to_rad(85))
 	look_rotation.y -= rot_input.x * look_speed
+	
+	
+	#rotate_y($SpringArm3D.rotation.y)
 	transform.basis = Basis()
 	rotate_y(look_rotation.y)
 	head.transform.basis = Basis()
@@ -238,14 +306,21 @@ func check_input_mappings():
 
 
 func _on_coolof_timeout() -> void:
-	var inst = BULLET.instantiate();
 	
-	inst.global_position = $hole.global_position
-	inst.rotation = $hole.global_rotation
+	if bullets > 0:
+		var inst = BULLET.instantiate();
+		inst.global_position = $hole.global_position
+		inst.rotation = $hole.global_rotation
+		get_parent().add_child(inst);
+		bullets -= 1
+		$CanvasLayer/Label2.text = str(bullets);
+		$AudioStreamPlayer3D.play()
+	else:
+		$CanvasLayer/Label2.text = "Reloading..";
+		if $reload.is_stopped():
+			$reload.start()
 	
-	get_parent().add_child(inst);
 	
-	$AudioStreamPlayer3D.play()
 	
 	
 
@@ -264,16 +339,34 @@ func _on_timer_timeout() -> void:
 	#tween.tween_property($Mesh.material_overlay, "albedo_color", "eb161700", 2.0)
 
 
+var cooldownself = false
 
+signal rewardon;
 
 func _on_hitarea_area_entered(area: Area3D) -> void:
-	if area.is_in_group("hurt"):
-		damage = 10
-		$Mesh.material_overlay.albedo_color= Color.TRANSPARENT
-		$hitarea/kill.start();
-	if area.is_in_group("out"):
-		damage = 50
-		$hitarea/kill.start();
+	
+	if not cooldownself:
+		if area.is_in_group("hurt"):
+			damage = 10
+			$Mesh.material_overlay.albedo_color= Color.TRANSPARENT
+			$hitarea/kill.start();
+		if area.is_in_group("out"):
+			damage = 50
+			$hitarea/kill.start();
+		if area.is_in_group("ex"):
+			damage = 40
+			$hitarea/kill.start();
+		if area.is_in_group("shell"):
+			playerhealth -= 10
+	if area.is_in_group("volt"):
+		levelPoints += 1;
+		if levelPoints >= nexLevelUpPoints:
+			level += 1
+			rewardon.emit()
+			reward += 1
+			nexLevelUpPoints *= 2
+			levelPoints = 0
+		area.queue_free()
 
 
 func _on_hitarea_area_exited(area: Area3D) -> void:
@@ -282,4 +375,18 @@ func _on_hitarea_area_exited(area: Area3D) -> void:
 		$hitarea/kill.stop();
 	if area.is_in_group("out"):
 		$hitarea/kill.stop();
+	if area.is_in_group("ex"):
+		print("got hit")
+		playerhealth -= 30
+		$hitarea/kill.stop();
 	
+
+
+func _on_reload_timeout() -> void:
+	bullets = maxbullets
+	$CanvasLayer/Label2.text = str(bullets);
+	
+
+
+func _on_touch_screen_button_pressed() -> void:
+	lockonenabled *= -1

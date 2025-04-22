@@ -6,14 +6,30 @@ extends CharacterBody3D
 
 var isfloat = 0;
 
+const VOLT = preload("res://volt.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Global.totalenemy += 1
 
 var follow = true
 
+var isvisble = true
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
+	if DisplayServer.is_touchscreen_available():
+		var cameraref = get_parent().get_node("player").get_node("SpringArm3D").get_node("Head").get_node("Camera3D")
+
+		$CanvasLayer/Pointer.position = cameraref.unproject_position(global_position)
+		$CanvasLayer/Pointer.scale.x = min(position.distance_to(get_parent().get_node("player").position), 5)
+		$CanvasLayer/Pointer.scale.y = min(position.distance_to(get_parent().get_node("player").position), 5)
+		if position.distance_to(get_parent().get_node("player").position) > 25:
+			$CanvasLayer/Pointer.hide()
+		else:
+			if isvisble:
+				$CanvasLayer/Pointer.show()
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta * isfloat
@@ -33,10 +49,24 @@ func _process(delta: float) -> void:
 
 
 func _on_hit_area_entered(area: Area3D) -> void:
+	
+	if area.is_in_group("puni"):
+		life = 0;
+		$AnimationPlayer.play("boom")
+			
+		var inst1 = VOLT.instantiate();
+		inst1.position = position
+			
+		get_parent().add_child(inst1)
 
 	if area.is_in_group("kill"):
 		if life <= 0:
 			$AnimationPlayer.play("boom")
+			
+			var inst1 = VOLT.instantiate();
+			inst1.position = position
+			
+			get_parent().add_child(inst1)
 			
 			
 		else:
@@ -59,3 +89,13 @@ func _on_timer_timeout() -> void:
 	Global.total_kills += 1
 	queue_free()
 	
+
+
+func _on_visible_on_screen_notifier_3d_screen_exited() -> void:
+	print("out")
+	isvisble = false
+	$CanvasLayer/Pointer.hide()
+
+
+func _on_visible_on_screen_notifier_3d_screen_entered() -> void:
+	isvisble = true
