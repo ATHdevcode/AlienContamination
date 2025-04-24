@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b53cj0thn1oe1"]
+[gd_scene load_steps=21 format=3 uid="uid://b53cj0thn1oe1"]
 
 [ext_resource type="Script" path="res://kroto.gd" id="1_rxhpc"]
 [ext_resource type="Texture2D" uid="uid://c7tqykiakauwn" path="res://assets/smoke_02.png" id="2_yjay0"]
@@ -11,14 +11,26 @@ radius = 0.885593
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qworh"]
 albedo_color = Color(0.0836112, 0.0133363, 0.110595, 1)
+metallic = 0.37
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ejnqk"]
 albedo_color = Color(0.0447295, 0.261781, 0.453454, 1)
+metallic = 0.89
+roughness = 0.68
+refraction_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t2soi"]
 albedo_color = Color(0.784765, 0, 0.0362731, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t0cxc"]
+albedo_color = Color(2, 0.037, 0.14, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t68ip"]
+shading_mode = 0
+albedo_color = Color(2, 0.037, 0.14, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ll7ti"]
+shading_mode = 0
 albedo_color = Color(2, 0.037, 0.14, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tq6kv"]
@@ -160,6 +172,16 @@ material = SubResource("StandardMaterial3D_t0cxc")
 transform = Transform3D(0.0109761, 0, 0.0958965, 0, 0.27178, 0, -0.155715, 0, 0.00675956, 0.412414, 0.73258, -0.920538)
 polygon = PackedVector2Array(0, 0, 0, 1, -1.96696, -0.578115, 1, 0)
 material = SubResource("StandardMaterial3D_t0cxc")
+
+[node name="CSGPolygon3D8" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(-0.00183626, 0, -0.00999931, 0, 0.27178, 0, 0.156091, 0, -0.000117632, 0.419186, 0.73258, -0.00789536)
+polygon = PackedVector2Array(0, 0, 0, 1, -1.96696, -0.578115, 1, 0)
+material = SubResource("StandardMaterial3D_t68ip")
+
+[node name="CSGPolygon3D9" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.0109761, 0, 0.00997525, 0, 0.27178, 0, -0.155715, 0, 0.000703139, 0.422513, 0.73258, -0.920177)
+polygon = PackedVector2Array(0, 0, 0, 1, -1.96696, -0.578115, 1, 0)
+material = SubResource("StandardMaterial3D_ll7ti")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.33893, 1.08433, -0.305264)

@@ -1,8 +1,18 @@
 extends Area3D
 
+enum {
+	Speedup,
+	Bullletup,
+	Healthup,
+	Autokill
+}
 
-
-var allupgardes = ["speed", "bulletamt", "healthheal"]
+var allupgardes = [Speedup,
+	Bullletup,
+	Healthup,
+	Autokill]
+	
+var autokillactive = false
 
 func _ready() -> void:
 	pass # Replace with function body.
@@ -16,12 +26,18 @@ func _process(delta: float) -> void:
 	else:
 		for i in $Node.get_children():
 			i.emitting = false;
+			
+	
+	if autokillactive:
+		for i in get_parent().get_children():
+			if i.is_in_group("kroto"):
+				i.autokillspawn = true
 		
 
 
 func _on_body_entered(body: Node3D) -> void:
 
-	if body.name == "player" and body.reward > 0:
+	if body.name == "player" and body.reward > -10:
 		var clonedupdates = []
 		#clonedupdates.assign(allupgardes)
 		clonedupdates.append_array(allupgardes)
@@ -34,16 +50,29 @@ func _on_body_entered(body: Node3D) -> void:
 		for i in range(3):
 			var index = randi_range(0, clonedupdates.size()-1)
 			
-			var button  = Button.new()
+			var button  = TextureButton.new()
 			
-			button.text = clonedupdates[index]
+			button.theme = load("res://tip.tres")
 			
-			if clonedupdates[index] == "speed":
+			
+			#button.text = clonedupdates[index]
+			
+			if clonedupdates[index] == Speedup:
+				button.tooltip_text = "SPEEDUP\n-----------\nSlightyl increases your speed"
+				button.texture_normal = load("res://assets/card3.png")
 				button.pressed.connect(_speedupbutton)
-			elif clonedupdates[index] == "bulletamt":
+			elif clonedupdates[index] == Bullletup:
+				button.tooltip_text = "BULLETUP\n-----------\nIncreases your total bullet capacity"
+				button.texture_normal = load("res://assets/card2.png")
 				button.pressed.connect(_bulletup)
-			elif clonedupdates[index] == "healthheal":
+			elif clonedupdates[index] == Healthup:
+				button.tooltip_text = "HEALTH HEAL\n-----------\nFully Restores your health"
+				button.texture_normal = load("res://assets/card1.png")
 				button.pressed.connect(_healthheal)
+			elif clonedupdates[index] == Autokill:
+				button.tooltip_text = "Autokill\n-----------\nFor each enemy you kill there is 10% chance to spawn a autokill"
+				button.texture_normal = load("res://assets/card4.png")
+				button.pressed.connect(_autokill)
 				
 			clonedupdates.remove_at(index)
 				
@@ -94,6 +123,14 @@ func _healthheal():
 func _bulletup():
 	print("bullets++")
 	$"../player".maxbullets += 2
+	applayandcontinue(true)
+
+func _autokill():
+	autokillactive = true
+	for i in get_parent().get_children():
+		if i.is_in_group("kroto"):
+			i.autokillspawn = true
+	print("Autokill active")
 	applayandcontinue(true)
 
 

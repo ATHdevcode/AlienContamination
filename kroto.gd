@@ -6,7 +6,11 @@ extends CharacterBody3D
 
 var isfloat = 0;
 
+var autokillspawn = false
+
 const VOLT = preload("res://volt.tscn")
+const AUTOKILL = preload("res://autokill.tscn")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -66,7 +70,14 @@ func _on_hit_area_entered(area: Area3D) -> void:
 			var inst1 = VOLT.instantiate();
 			inst1.position = position
 			
+			if(randi_range(1,100) <= 10) and autokillspawn:
+				var inst2 = AUTOKILL.instantiate();
+				inst2.position = position
+				get_parent().add_child(inst2)
+				life = 100
+			
 			get_parent().add_child(inst1)
+			
 			
 			
 		else:

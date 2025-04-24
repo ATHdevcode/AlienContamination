@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3 uid="uid://kjgpivlo7nol"]
+
+[ext_resource type="Texture2D" uid="uid://o6adprb373f4" path="res://assets/fire_01.png" id="1_nof33"]
+[ext_resource type="Script" path="res://astriod.gd" id="1_qswud"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gcm8h"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_loq88"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.791513, 0, 0.116697, 1)
+albedo_texture = ExtResource("1_nof33")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_7sv0t"]
+material = SubResource("StandardMaterial3D_loq88")
+size = Vector2(6, 6)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mu17x"]
+material = SubResource("StandardMaterial3D_gcm8h")
+radial_segments = 4
+rings = 4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_to6vq"]
+radius = 2.38366
+
+[node name="Astriod" type="Area3D" groups=["aster"]]
+script = ExtResource("1_qswud")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+radius = 1.29867
+radial_segments = 4
+rings = 4
+material = SubResource("StandardMaterial3D_gcm8h")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+amount = 12
+lifetime = 1.8
+lifetime_randomness = 0.22
+mesh = SubResource("QuadMesh_7sv0t")
+direction = Vector3(0, 0, 1)
+spread = 13.38
+gravity = Vector3(0, 0, 9.8)
+
+[node name="CPUParticles3D2" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.285232, 0.742953, -0.37981)
+amount = 12
+lifetime = 1.8
+lifetime_randomness = 0.22
+mesh = SubResource("QuadMesh_7sv0t")
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, 1)
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 0.5
+
+[node name="CPUParticles3D3" type="CPUParticles3D" parent="."]
+emitting = false
+amount = 15
+one_shot = true
+explosiveness = 0.41
+mesh = SubResource("SphereMesh_mu17x")
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, 1)
+spread = 64.46
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+
+[node name="last" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_to6vq")
+
+[connection signal="timeout" from="last" to="." method="_on_last_timeout"]

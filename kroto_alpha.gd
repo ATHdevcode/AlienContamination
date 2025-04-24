@@ -14,10 +14,9 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var cameraref = get_parent().get_node("player").get_node("SpringArm3D").get_node("Head").get_node("Camera3D")
-	#$ColorRect.position = 
+
 	
 	$CanvasLayer/ProgressBar.position = cameraref.unproject_position($ui.global_position)
-	rotate_y()
 	if position.distance_to(get_parent().get_node("player").position) > 35:
 		$CanvasLayer/ProgressBar.hide()
 	else:

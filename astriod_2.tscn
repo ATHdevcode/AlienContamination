@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3 uid="uid://6httdvvon5yn"]
+
+[ext_resource type="PackedScene" uid="uid://kjgpivlo7nol" path="res://astriod.tscn" id="1_73s2k"]
+[ext_resource type="Texture2D" uid="uid://o6adprb373f4" path="res://assets/fire_01.png" id="2_ykc13"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_loq88"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.792, 0, 0.117, 1)
+albedo_texture = ExtResource("2_ykc13")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_txaxq"]
+material = SubResource("StandardMaterial3D_loq88")
+size = Vector2(80, 80)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnftl"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.791513, 0, 0.116697, 1)
+albedo_texture = ExtResource("2_ykc13")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_27tot"]
+material = SubResource("StandardMaterial3D_xnftl")
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gcm8h"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_g7o87"]
+material = SubResource("StandardMaterial3D_gcm8h")
+radius = 20.0
+height = 40.0
+radial_segments = 4
+rings = 4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mgcb3"]
+radius = 44.6161
+
+[node name="Astriod2" groups=["extra"] instance=ExtResource("1_73s2k")]
+
+[node name="CSGSphere3D" parent="." index="0"]
+radius = 22.0
+
+[node name="CPUParticles3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16.1597)
+lifetime = 3.0
+mesh = SubResource("QuadMesh_txaxq")
+
+[node name="CPUParticles3D2" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.285232, 4.15171, -0.37981)
+lifetime = 3.0
+mesh = SubResource("QuadMesh_27tot")
+
+[node name="CPUParticles3D3" parent="." index="3"]
+lifetime = 3.0
+mesh = SubResource("SphereMesh_g7o87")
+
+[node name="last" parent="." index="4"]
+wait_time = 3.0
+
+[node name="CollisionShape3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.5313)
+shape = SubResource("SphereShape3D_mgcb3")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, -0.200018, 0.979792, 0, -0.979792, -0.200018, -2.22521, -0.377357, -18.9962)
+visible = false
+size = Vector3(10.7383, 23.1929, 10.8691)
+
+[node name="Timer" type="Timer" parent="." index="7"]
+wait_time = 1.1
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

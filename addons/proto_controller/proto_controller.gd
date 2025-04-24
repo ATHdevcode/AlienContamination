@@ -205,7 +205,8 @@ func _physics_process(delta: float) -> void:
 	
 
 	if playerhealth <= 0:
-		get_tree().change_scene_to_file("res://main.tscn");
+		pass
+		#get_tree().change_scene_to_file("res://main.tscn");
 	
 	# Apply gravity to velocity
 	
@@ -314,6 +315,7 @@ func _on_coolof_timeout() -> void:
 		get_parent().add_child(inst);
 		bullets -= 1
 		$CanvasLayer/Label2.text = str(bullets);
+		$hole/AnimationPlayer.play("shoot")
 		$AudioStreamPlayer3D.play()
 	else:
 		$CanvasLayer/Label2.text = "Reloading..";
@@ -358,15 +360,21 @@ func _on_hitarea_area_entered(area: Area3D) -> void:
 			$hitarea/kill.start();
 		if area.is_in_group("shell"):
 			playerhealth -= 10
-	if area.is_in_group("volt"):
-		levelPoints += 1;
-		if levelPoints >= nexLevelUpPoints:
-			level += 1
-			rewardon.emit()
-			reward += 1
-			nexLevelUpPoints *= 2
-			levelPoints = 0
-		area.queue_free()
+		if area.is_in_group("aster"):
+			damage = 100/position.distance_to(area.position)
+			playerhealth -= damage
+		if area.is_in_group("extra"):
+			damage = 1500/(position.distance_to(area.position)/2)
+			playerhealth -= damage
+	#if area.is_in_group("volt"):
+	#	levelPoints += 1;
+	#	if levelPoints >= nexLevelUpPoints:
+	#		level += 1
+	#		rewardon.emit()
+	#		reward += 1
+	#		nexLevelUpPoints *= 2
+	#		levelPoints = 0
+	#	area.queue_free()
 
 
 func _on_hitarea_area_exited(area: Area3D) -> void:
@@ -390,3 +398,15 @@ func _on_reload_timeout() -> void:
 
 func _on_touch_screen_button_pressed() -> void:
 	lockonenabled *= -1
+
+
+func _on_hitarea_body_entered(body: Node3D) -> void:
+	if body.is_in_group("volt"):
+		levelPoints += 1;
+		if levelPoints >= nexLevelUpPoints:
+			level += 1
+			rewardon.emit()
+			reward += 1
+			nexLevelUpPoints *= 2
+			levelPoints = 0
+		body.queue_free()

@@ -13,6 +13,9 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
+	if not is_on_floor():
+		velocity += get_gravity()
+	
 	#$gun.look_at($"../player".position)
 	
 	print(tracker.size())
@@ -32,6 +35,8 @@ func _process(delta: float) -> void:
 	else:
 		
 		$coolof.stop()
+		
+	move_and_collide(velocity)
 	
 	
 

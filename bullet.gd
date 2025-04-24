@@ -15,13 +15,15 @@ func _process(delta: float) -> void:
 
 
 func _on_area_entered(area: Area3D) -> void:
-	$CPUParticles3D.emitting = true
-	$free.start()
+	if area.name != "hitarea":
+		$CPUParticles3D.emitting = true
+		$free.start()
 
 
 func _on_body_entered(body: Node3D) -> void:
-	$CPUParticles3D.emitting = true
-	$free.start()
+	if body.name != "player":
+		$CPUParticles3D.emitting = true
+		$free.start()
 
 
 func _on_free_timeout() -> void:
@@ -30,4 +32,5 @@ func _on_free_timeout() -> void:
 
 
 func _on_full_timeout() -> void:
+	$CPUParticles3D.emitting = true
 	queue_free()

@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://xl7qlrvd4wvw"]
+[gd_scene load_steps=11 format=3 uid="uid://xl7qlrvd4wvw"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_l2d3o"]
 [ext_resource type="Texture2D" uid="uid://wdmhdw4wnktr" path="res://cover.png" id="1_nktx7"]
 [ext_resource type="FontFile" uid="uid://d38sawp4yl5h3" path="res://Lilita_One/LilitaOne-Regular.ttf" id="2_1kbpl"]
 [ext_resource type="AudioStream" uid="uid://bigwq33rxf0ck" path="res://sfx/Alien Contamination.mp3" id="4_3io5k"]
+[ext_resource type="Theme" uid="uid://cjfdcawuh7tkj" path="res://tip.tres" id="4_hs25v"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wqf0i"]
 font = ExtResource("2_1kbpl")
@@ -79,6 +80,7 @@ offset_left = 112.0
 offset_top = 384.0
 offset_right = 440.0
 offset_bottom = 440.0
+theme = ExtResource("4_hs25v")
 theme_override_fonts/font = ExtResource("2_1kbpl")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_ulyy0")

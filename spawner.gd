@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 
 func _on_timer_timeout() -> void:
 	
-	max_spawn = max(floor((Global.total_kills) / 4), 2)
+	#max_spawn = max(floor((Global.total_kills) / 4), 2)
 	if Global.totalenemy <= max_spawn:
 		var inst = KROTO.instantiate();
 		inst.position = position

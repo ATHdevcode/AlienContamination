@@ -5,7 +5,7 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46man"]
 shading_mode = 0
-albedo_color = Color(0.738, 0.002, 1, 1)
+albedo_color = Color(0.232, 0.521, 2, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_ujkdl"]
 material = SubResource("StandardMaterial3D_46man")
@@ -15,8 +15,9 @@ radius = 0.173859
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y43yf"]
 transparency = 1
+blend_mode = 4
 shading_mode = 0
-albedo_color = Color(0.737255, 0.00392157, 1, 1)
+albedo_color = Color(0.098, 0.516, 2, 1)
 albedo_texture = ExtResource("2_dk8el")
 billboard_mode = 1
 
@@ -52,6 +53,22 @@ gravity = Vector3(0, 0, 0)
 initial_velocity_min = 5.0
 initial_velocity_max = 10.0
 
+[node name="CPUParticles3D2" type="CPUParticles3D" parent="."]
+amount = 10
+lifetime = 0.5
+explosiveness = 0.1
+mesh = SubResource("QuadMesh_gu25j")
+direction = Vector3(0, 0, 1)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+
+[node name="full" type="Timer" parent="."]
+wait_time = 0.6
+autostart = true
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="free" to="." method="_on_free_timeout"]
+[connection signal="timeout" from="full" to="." method="_on_full_timeout"]

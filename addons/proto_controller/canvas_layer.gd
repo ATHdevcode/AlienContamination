@@ -22,6 +22,21 @@ func _process(delta: float) -> void:
 	$ProgressBar3.value = get_parent().levelPoints
 	$Label3.text = "Level: "+str(get_parent().level)
 	
+	for  i in $bulletbox.get_children():
+		i.queue_free()
+	#
+	$bulletbox.scale.x = 7.0/(get_parent().maxbullets+1.0)
+	
+	
+	
+	#print($bulletbox.position.x)
+	for i in range(get_parent().bullets):
+		var bulletui = TextureButton.new()
+		
+		bulletui.texture_normal = load("res://assets/ui/bulletui.png")
+		
+		$bulletbox.add_child(bulletui)
+	
 	
 	var tween = get_tree().create_tween();
 	tween.tween_property($ProgressBar2, "value", $ProgressBar.value, 1.5)
