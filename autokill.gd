@@ -18,13 +18,13 @@ func _process(delta: float) -> void:
 	
 	#$gun.look_at($"../player".position)
 	
-	print(tracker.size())
+	
 	if tracker.size() > 0:
 		
 		
 		if $coolof.is_stopped():
 			$coolof.start()
-		print(tracker)
+		
 		if get_parent().is_ancestor_of(tracker[0]):
 			$gun.look_at(tracker[0].position)
 			

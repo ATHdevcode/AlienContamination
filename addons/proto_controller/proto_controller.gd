@@ -8,6 +8,8 @@ extends CharacterBody3D
 var lockonenabled = 1
 
 const BULLET = preload("res://bullet.tscn")
+const GOBLER = preload("res://gobler.tscn")
+
 var getmouse:Vector2;
 
 var maxbullets = 6;
@@ -77,14 +79,16 @@ var levelPoints = 0
 
 var reward = level;
 
-var camerasensetivity = Global.camerssenstivity;
+var camerasensetivity = 6;
+
+var inzone = false
 
 
 
 func _ready() -> void:
 	#camera = $Head2/Camera3D2
 	#head = $Head2
-	$CanvasLayer/Label2.text = str(bullets);
+	$CanvasLayer/VFlowContainer/Label2.text = str(bullets)+"/"+str(maxbullets);
 	
 	$reload.wait_time = reloadtime
 	
@@ -136,9 +140,11 @@ func _input(event: InputEvent) -> void:
 		
 var firstperson = -1
 
+signal respawnboss
+
 func _unhandled_input(event: InputEvent) -> void:
 	# Mouse capturing
-	if not DisplayServer.is_touchscreen_available():
+	if not DisplayServer.is_touchscreen_available() and event is InputEventMouseMotion:
 		capture_mouse()
 	if Input.is_key_pressed(KEY_ESCAPE):
 		release_mouse()
@@ -161,12 +167,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 	
 		
+
 	
 
 	
 	
-	if mouse_captured and event is InputEventMouseMotion and (OS.get_name() == "Linux" or OS.get_name() == "Windows"):
-		#print(event.relative)
+	if mouse_captured and event is InputEventMouseMotion and (OS.get_name() == "Linux" or OS.get_model_name() == "GenericDevice"):
+		
+		
 		
 		rotate_look(event.relative)
 	rotate_look($"CanvasLayer/Virtual Joystick".output)
@@ -202,10 +210,32 @@ func _physics_process(delta: float) -> void:
 			
 	
 		
+	$shiled.visible = shieldup
 	
 
 	if playerhealth <= 0:
-		pass
+		if Global.gamemode == Global.modes.BABY and get_parent().current_boss != null:
+			
+			get_parent().current_boss.queue_free()
+			playerhealth = 100
+			position = Vector3(-19,76,31)
+			emit_signal("respawnboss")
+		else:
+			if Global.instantplay:
+				Global.togglescreen()
+				get_tree().reload_current_scene()
+			else:
+				release_mouse()
+				$death.show()
+			
+				if $Collider != null:
+					$SpringArm3D/Head/Camera3D.current = false
+					$death/Camera3D.global_position = $SpringArm3D/Head/Camera3D.global_position
+					$death/Camera3D.global_rotation = $SpringArm3D/Head/Camera3D.global_rotation
+					$death/Camera3D.current = true
+					$death/Camera3D.reparent(get_parent())
+					$Collider.queue_free()
+		#get_tree().paused = true
 		#get_tree().change_scene_to_file("res://main.tscn");
 	
 	# Apply gravity to velocity
@@ -222,14 +252,18 @@ func _physics_process(delta: float) -> void:
 	# Modify speed based on sprinting
 	if can_sprint and Input.is_action_pressed(input_sprint):
 			move_speed = sprint_speed
-	else:
+	elif not inzone:
 		move_speed = base_speed
+	else:
+		move_speed = 2.0
 
 	# Apply desired movement to velocity
 	if can_move:
 		var input_dir := Input.get_vector(input_left, input_right, input_forward, input_back)
 		var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		
 		if move_dir:
+			$Char/AnimationPlayer.play("walking")
 			velocity.x = move_dir.x * move_speed
 			velocity.z = move_dir.z * move_speed
 		else:
@@ -314,11 +348,11 @@ func _on_coolof_timeout() -> void:
 		inst.rotation = $hole.global_rotation
 		get_parent().add_child(inst);
 		bullets -= 1
-		$CanvasLayer/Label2.text = str(bullets);
+		$CanvasLayer/VFlowContainer/Label2.text = str(bullets)+"/"+str(maxbullets);
 		$hole/AnimationPlayer.play("shoot")
 		$AudioStreamPlayer3D.play()
 	else:
-		$CanvasLayer/Label2.text = "Reloading..";
+		$CanvasLayer/VFlowContainer/Label2.text = "Reloading..";
 		if $reload.is_stopped():
 			$reload.start()
 	
@@ -332,40 +366,64 @@ var damage = 10
 
 
 func _on_timer_timeout() -> void:
+	$AnimationPlayer.play("hurt")
 	playerhealth -= damage;
-	var tween = get_tree().create_tween();
-	#$Mesh.material_overlay.albedo_color= Color.RED
-	tween.tween_property($Mesh.material_overlay, "albedo_color", Color.RED, 0.3)
-	tween.tween_property($Mesh.material_overlay, "albedo_color", Color.TRANSPARENT, 0.3)
-	
-	#tween.tween_property($Mesh.material_overlay, "albedo_color", "eb161700", 2.0)
+
 
 
 var cooldownself = false
+var shieldup:bool = false
+var impulse = false
+var loles = false
+
+
 
 signal rewardon;
 
+
 func _on_hitarea_area_entered(area: Area3D) -> void:
 	
-	if not cooldownself:
+	if not cooldownself and not shieldup:
 		if area.is_in_group("hurt"):
 			damage = 10
-			$Mesh.material_overlay.albedo_color= Color.TRANSPARENT
+			
 			$hitarea/kill.start();
 		if area.is_in_group("out"):
 			damage = 50
 			$hitarea/kill.start();
 		if area.is_in_group("ex"):
+			
 			damage = 40
 			$hitarea/kill.start();
 		if area.is_in_group("shell"):
+			$AnimationPlayer.play("hurt")
 			playerhealth -= 10
-		if area.is_in_group("aster"):
-			damage = 100/position.distance_to(area.position)
-			playerhealth -= damage
-		if area.is_in_group("extra"):
-			damage = 1500/(position.distance_to(area.position)/2)
-			playerhealth -= damage
+	if area.is_in_group("aster"):
+		$AnimationPlayer.play("hurt")
+		damage = 100/position.distance_to(area.position)
+		playerhealth -= damage
+	if area.is_in_group("extra"):
+		$AnimationPlayer.play("hurt")
+		damage = 1500/(position.distance_to(area.position)/2)
+		playerhealth -= damage
+	if area.is_in_group("slow"):
+		inzone = true
+			
+		 
+	if playerhealth < 90 and loles:
+		if randi_range(1, 10 ) == 1:
+			var inst = GOBLER.instantiate()
+			inst.position = position
+			inst.position.x += 10
+			inst.position.z += 8
+			
+			get_parent().add_child(inst)
+	if playerhealth < 39 and  impulse:
+		var tween = create_tween()
+		tween.parallel().tween_property($impulse/CSGCylinder3D, "radius", 12, 0.8).set_trans(Tween.TRANS_SINE)
+		tween.parallel().tween_property($impulse/CollisionShape3D.shape, "radius", 12, 0.8).set_trans(Tween.TRANS_SINE)
+		$impulse/retact.start()
+		
 	#if area.is_in_group("volt"):
 	#	levelPoints += 1;
 	#	if levelPoints >= nexLevelUpPoints:
@@ -387,26 +445,56 @@ func _on_hitarea_area_exited(area: Area3D) -> void:
 		print("got hit")
 		playerhealth -= 30
 		$hitarea/kill.stop();
+	if area.is_in_group("slow"):
+			inzone = false
+	
+	
 	
 
 
 func _on_reload_timeout() -> void:
 	bullets = maxbullets
-	$CanvasLayer/Label2.text = str(bullets);
+	$CanvasLayer/VFlowContainer/Label2.text = str(bullets)+"/"+str(maxbullets);
 	
-
+	
 
 func _on_touch_screen_button_pressed() -> void:
 	lockonenabled *= -1
 
+
+signal levelupp;
 
 func _on_hitarea_body_entered(body: Node3D) -> void:
 	if body.is_in_group("volt"):
 		levelPoints += 1;
 		if levelPoints >= nexLevelUpPoints:
 			level += 1
+			levelupp.emit()
 			rewardon.emit()
 			reward += 1
 			nexLevelUpPoints *= 2
 			levelPoints = 0
 		body.queue_free()
+
+
+func _on_hitarea_2_area_entered(area: Area3D) -> void:
+	if area.is_in_group("bolt"):
+			playerhealth-= 25
+			area.queue_free()
+
+
+func _on_shiled_body_entered(body: Node3D) -> void:
+	if body.is_in_group("kroto") and shieldup:
+		$shiled/backup.start()
+		shieldup = false
+
+
+func _on_backup_timeout() -> void:
+	shieldup = true
+
+
+func _on_retact_timeout() -> void:
+	var tween = create_tween()
+	tween.parallel().tween_property($impulse/CSGCylinder3D, "radius", 0.2, 1).set_trans(Tween.TRANS_SINE)
+	tween.parallel().tween_property($impulse/CollisionShape3D.shape, "radius", 0.2, 1).set_trans(Tween.TRANS_SINE)
+	impulse = false

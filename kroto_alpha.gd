@@ -6,6 +6,10 @@ const LASER = preload("res://laser.tscn")
 
 var health = 200
 
+const maxhealth = 200
+
+signal dead
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -13,6 +17,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
+	
 	var cameraref = get_parent().get_node("player").get_node("SpringArm3D").get_node("Head").get_node("Camera3D")
 
 	
@@ -72,6 +78,7 @@ func _on_hitter_area_entered(area: Area3D) -> void:
 	if area.is_in_group("kill"):
 		health -= 2
 		if health <= 0:
+			dead.emit()
 			$AnimationPlayer.play("dead");
 			$bullet.stop()
 			$supper.stop()
@@ -93,3 +100,21 @@ func _on_hitter_2_area_entered(area: Area3D) -> void:
 
 func _on_remove_timeout() -> void:
 	queue_free()
+
+
+func _on_start_body_entered(body: Node3D) -> void:
+	print("name:")
+	print(body.name)
+	if body.name == "player":
+		$bullet.start()
+		$turn.start()
+		$supper.start()
+		$start.queue_free()
+
+
+func _on_start_area_entered(area: Area3D) -> void:
+	if area.is_in_group("player"):
+		$bullet.start()
+		$turn.start()
+		$supper.start()
+		$start.queue_free()

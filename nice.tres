@@ -1,0 +1,13 @@
+[gd_resource type="Sky" load_steps=3 format=3 uid="uid://cr86yip0xhi22"]
+
+[ext_resource type="Shader" path="res://level.gdshader" id="1_ymxsq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ui72"]
+shader = ExtResource("1_ymxsq")
+shader_parameter/vertical_sections = 21
+shader_parameter/star_size = 0.01
+shader_parameter/star_falloff = 2.0
+shader_parameter/margin = 0.05
+
+[resource]
+sky_material = SubResource("ShaderMaterial_2ui72")

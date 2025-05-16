@@ -10,7 +10,7 @@ const FIRE = preload("res://fire.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	$AnimationPlayer.play("RESET")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,9 +26,11 @@ func _process(delta: float) -> void:
 		if (position.distance_to(targert_location) < 3):
 			$CPUParticles3D3.emitting = true
 			$CSGSphere3D.queue_free()
-			$Timer.start()
+			if $Timer != null:
+				$Timer.start()
 			
 			targert_location = null
+			$AnimationPlayer.play("fade")
 			$last.start()
 
 

@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/Alien Contamination.mp3-a93efb5f88826b08e0b8a
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

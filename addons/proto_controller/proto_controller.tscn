@@ -1,13 +1,18 @@
-[gd_scene load_steps=33 format=4 uid="uid://bs72ogkvdd7d6"]
+[gd_scene load_steps=54 format=4 uid="uid://bs72ogkvdd7d6"]
 
 [ext_resource type="Script" path="res://addons/proto_controller/proto_controller.gd" id="1_ucva2"]
 [ext_resource type="Script" path="res://addons/proto_controller/canvas_layer.gd" id="2_bekbc"]
 [ext_resource type="Texture2D" uid="uid://b50x26my3dau2" path="res://assets/pointer.png" id="3_0pc8c"]
-[ext_resource type="AudioStream" uid="uid://cu8yut5vbv5nd" path="res://sfx/shooteffect.wav" id="5_2ik8b"]
-[ext_resource type="FontFile" uid="uid://d38sawp4yl5h3" path="res://Lilita_One/LilitaOne-Regular.ttf" id="5_4rkb1"]
 [ext_resource type="Texture2D" uid="uid://cf4sye03yhkdw" path="res://assets/arrow.png" id="5_j3ujh"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="5_npryi"]
+[ext_resource type="FontFile" uid="uid://c0ovyae7rjh1a" path="res://Lilita_One,Sansation/Sansation/Sansation-Bold.ttf" id="6_6lvcp"]
 [ext_resource type="Texture2D" uid="uid://bhuo63aiwa55p" path="res://assets/ui/bulletui.png" id="7_w8onc"]
+[ext_resource type="FontFile" uid="uid://db33dnmnwvpvd" path="res://Lilita_One,Sansation/Sansation/Sansation-Regular.ttf" id="8_cydxu"]
+[ext_resource type="PackedScene" uid="uid://chh1mcgvhj8ad" path="res://char.tscn" id="9_6fuf2"]
+[ext_resource type="Script" path="res://addons/proto_controller/pausemenu.gd" id="9_33pxn"]
+[ext_resource type="AudioStream" uid="uid://c5xlbsd2tg45j" path="res://sfx/laser-45816.mp3" id="9_sesb0"]
+[ext_resource type="Shader" path="res://addons/proto_controller/menu.gdshader" id="12_5h675"]
+[ext_resource type="Script" path="res://addons/proto_controller/death.gd" id="12_88r22"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
 albedo_color = Color(0.91806, 0.575202, 0.222449, 1)
@@ -213,13 +218,8 @@ border_width_right = 3
 border_width_bottom = 1
 border_color = Color(0.908079, 0.728237, 0.935898, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_7xosv"]
-font_size = 38
-outline_size = 5
-outline_color = Color(0.727398, 0.152421, 0.360388, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_ncx56"]
-font = ExtResource("5_4rkb1")
+font = ExtResource("6_6lvcp")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wf6xe"]
 bg_color = Color(0.0786987, 0.120145, 0.165009, 1)
@@ -235,9 +235,102 @@ corner_radius_top_right = 9
 corner_radius_bottom_right = 9
 corner_radius_bottom_left = 1
 
+[sub_resource type="LabelSettings" id="LabelSettings_7xosv"]
+font = ExtResource("8_cydxu")
+font_size = 19
+outline_size = 5
+outline_color = Color(0.727398, 0.152421, 0.360388, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wbrm0"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_apoi5"]
-radius = 1.0
-height = 4.0
+radius = 0.774792
+height = 3.11567
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1bvf1"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8lgxf"]
+animation = &"walking"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n4du1"]
+animation = &"walkstart"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_62wye"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_prngd"]
+advance_mode = 2
+advance_condition = &"walk"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_eegyx"]
+states/Start/position = Vector2(153.333, 88)
+states/walking/node = SubResource("AnimationNodeAnimation_8lgxf")
+states/walking/position = Vector2(692, 79.7778)
+states/walkstart/node = SubResource("AnimationNodeAnimation_n4du1")
+states/walkstart/position = Vector2(325.333, 119.333)
+transitions = ["walkstart", "walking", SubResource("AnimationNodeStateMachineTransition_62wye"), "Start", "walkstart", SubResource("AnimationNodeStateMachineTransition_prngd")]
+
+[sub_resource type="LabelSettings" id="LabelSettings_onw4t"]
+font = ExtResource("6_6lvcp")
+font_size = 70
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wmm4n"]
+radius = 0.298617
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwfit"]
+shading_mode = 0
+albedo_color = Color(2, 0, 0.011, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_a0xfd"]
+radius = 1.84052
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_axtbs"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.368917, 0.00137211, 0.851797, 0.179)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i8e5m"]
+shader = ExtResource("12_5h675")
+shader_parameter/blur_amt = 1.636
+shader_parameter/mix_amt = 0.364
+shader_parameter/color_over = Color(0.536455, 0.00703065, 0.13514, 1)
+
+[sub_resource type="Animation" id="Animation_d0fu7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Char:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.3, 0.3, 0.3)]
+}
+
+[sub_resource type="Animation" id="Animation_0ydr5"]
+resource_name = "hurt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Char:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.3, 0.3, 0.3), Vector3(0.3, 0.27, 0.3), Vector3(0.3, 0.3, 0.3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o34o1"]
+_data = {
+"RESET": SubResource("Animation_d0fu7"),
+"hurt": SubResource("Animation_0ydr5")
+}
 
 [node name="player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 4
@@ -251,6 +344,7 @@ input_back = "s"
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_iof21")
 material_overlay = SubResource("StandardMaterial3D_tbco0")
 cast_shadow = 0
@@ -363,22 +457,6 @@ position = Vector2(216, -40)
 scale = Vector2(1.375, 1.375)
 texture_normal = ExtResource("5_j3ujh")
 
-[node name="Label" type="Label" parent="CanvasLayer"]
-offset_left = 984.0
-offset_top = 79.0
-offset_right = 1092.0
-offset_bottom = 132.0
-text = "KILLS:"
-label_settings = SubResource("LabelSettings_7xosv")
-
-[node name="Label2" type="Label" parent="CanvasLayer"]
-offset_left = 1032.0
-offset_top = 132.0
-offset_right = 1148.0
-offset_bottom = 185.0
-text = "bullet:"
-label_settings = SubResource("LabelSettings_7xosv")
-
 [node name="Label3" type="Label" parent="CanvasLayer"]
 offset_left = 568.0
 offset_top = 32.0
@@ -389,53 +467,118 @@ text = "level:0
 label_settings = SubResource("LabelSettings_ncx56")
 
 [node name="ProgressBar3" type="ProgressBar" parent="CanvasLayer"]
-offset_left = 408.0
-offset_top = 24.0
-offset_right = 784.0
-offset_bottom = 35.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -188.0
+offset_top = 16.0
+offset_right = 188.0
+offset_bottom = 27.0
+grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_wf6xe")
 theme_override_styles/fill = SubResource("StyleBoxFlat_30uje")
 value = 20.0
 show_percentage = false
 
-[node name="bulletbox" type="HBoxContainer" parent="CanvasLayer"]
+[node name="VFlowContainer" type="VBoxContainer" parent="CanvasLayer"]
+custom_minimum_size = Vector2(10, 10)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -544.0
-offset_right = -4.0
-offset_bottom = 64.0
+offset_left = -400.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 54.0
 grow_horizontal = 0
-scale = Vector2(1, 0.7)
-pivot_offset = Vector2(540, 0)
 alignment = 2
 
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/bulletbox"]
+[node name="bulletbox" type="HFlowContainer" parent="CanvasLayer/VFlowContainer"]
 layout_mode = 2
-texture_normal = ExtResource("7_w8onc")
+size_flags_vertical = 3
+alignment = 2
 
-[node name="TextureButton4" type="TextureButton" parent="CanvasLayer/bulletbox"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VFlowContainer/bulletbox"]
+custom_minimum_size = Vector2(10, 20)
 layout_mode = 2
-texture_normal = ExtResource("7_w8onc")
+texture = ExtResource("7_w8onc")
+expand_mode = 3
+stretch_mode = 4
 
-[node name="TextureButton5" type="TextureButton" parent="CanvasLayer/bulletbox"]
+[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/VFlowContainer/bulletbox"]
+custom_minimum_size = Vector2(10, 20)
 layout_mode = 2
-texture_normal = ExtResource("7_w8onc")
+texture = ExtResource("7_w8onc")
+expand_mode = 3
+stretch_mode = 4
 
-[node name="TextureButton6" type="TextureButton" parent="CanvasLayer/bulletbox"]
+[node name="TextureRect6" type="TextureRect" parent="CanvasLayer/VFlowContainer/bulletbox"]
+custom_minimum_size = Vector2(10, 20)
 layout_mode = 2
-texture_normal = ExtResource("7_w8onc")
+texture = ExtResource("7_w8onc")
+expand_mode = 3
+stretch_mode = 4
 
-[node name="TextureButton7" type="TextureButton" parent="CanvasLayer/bulletbox"]
+[node name="TextureRect7" type="TextureRect" parent="CanvasLayer/VFlowContainer/bulletbox"]
+custom_minimum_size = Vector2(10, 20)
 layout_mode = 2
-texture_normal = ExtResource("7_w8onc")
+texture = ExtResource("7_w8onc")
+expand_mode = 3
+stretch_mode = 4
 
-[node name="TextureButton8" type="TextureButton" parent="CanvasLayer/bulletbox"]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/VFlowContainer/bulletbox"]
+custom_minimum_size = Vector2(10, 20)
 layout_mode = 2
-texture_normal = ExtResource("7_w8onc")
+texture = ExtResource("7_w8onc")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/VFlowContainer/bulletbox"]
+custom_minimum_size = Vector2(10, 20)
+layout_mode = 2
+texture = ExtResource("7_w8onc")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/VFlowContainer/bulletbox"]
+custom_minimum_size = Vector2(10, 20)
+layout_mode = 2
+texture = ExtResource("7_w8onc")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label2" type="Label" parent="CanvasLayer/VFlowContainer"]
+layout_mode = 2
+text = "bullet:"
+label_settings = SubResource("LabelSettings_7xosv")
+horizontal_alignment = 2
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("CanvasItemMaterial_wbrm0")
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -228.0
+offset_right = 144.0
+offset_bottom = -206.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 1
+color = Color(0.311, 0.504, 0.57, 0.6)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ColorRect3"]
+layout_mode = 0
+offset_right = 152.0
+offset_bottom = 53.0
+
+[node name="Label" type="Label" parent="CanvasLayer/ColorRect3/VBoxContainer"]
+layout_mode = 2
+text = "KILLS:"
+label_settings = SubResource("LabelSettings_7xosv")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("5_2ik8b")
+stream = ExtResource("9_sesb0")
+bus = &"sfx"
 
 [node name="hitarea" type="Area3D" parent="."]
 collision_mask = 3
@@ -447,8 +590,203 @@ shape = SubResource("CapsuleShape3D_apoi5")
 [node name="kill" type="Timer" parent="hitarea"]
 wait_time = 0.4
 
+[node name="hitarea2" type="Area3D" parent="." groups=["player"]]
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hitarea2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_1bvf1")
+
 [node name="reload" type="Timer" parent="."]
 one_shot = true
+
+[node name="Char" parent="." instance=ExtResource("9_6fuf2")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Char/Armature" index="0"]
+bones/0/position = Vector3(-0.00203013, 0.859847, 0.00573903)
+bones/0/rotation = Quaternion(-0.000325361, -7.67351e-08, -7.67351e-08, 1)
+bones/1/position = Vector3(-4.22805e-07, 4.6944, 0.000275679)
+bones/1/rotation = Quaternion(0.000325364, -5.43322e-08, -5.44175e-08, 1)
+bones/2/rotation = Quaternion(0.478805, 0.520019, 0.520358, -0.479117)
+bones/3/rotation = Quaternion(0.00715472, 0.000534096, 0.0744381, 0.9972)
+bones/5/rotation = Quaternion(-0.64532, 0.000644288, 0.00303226, 0.763906)
+bones/7/rotation = Quaternion(0.667256, -0.000670902, 0.00302654, 0.744822)
+bones/8/rotation = Quaternion(-0.499837, 0.499838, 0.500163, 0.500162)
+bones/9/rotation = Quaternion(-0.000928424, 4.94773e-05, 0.0030748, 0.999995)
+bones/10/rotation = Quaternion(0.00092842, -4.95043e-05, -0.00307542, 0.999995)
+bones/11/position = Vector3(3.90551, 3.61643, -0.000426523)
+bones/11/rotation = Quaternion(-0.499837, -0.499837, -0.500163, 0.500163)
+bones/12/position = Vector3(-3.8911, 3.59216, 0.00681083)
+bones/13/rotation = Quaternion(-0.706877, -2.49877e-07, -1.41519e-07, 0.707337)
+bones/13/scale = Vector3(1, 1, 1)
+
+[node name="AnimationTree" type="AnimationTree" parent="Char"]
+tree_root = SubResource("AnimationNodeStateMachine_eegyx")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/walk = false
+
+[node name="pause" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+script = ExtResource("9_33pxn")
+
+[node name="pausemenu" type="ColorRect" parent="pause"]
+process_mode = 2
+offset_right = 1192.0
+offset_bottom = 680.0
+color = Color(0.0902353, 0.218049, 0.212268, 0.714)
+
+[node name="Label" type="Label" parent="pause/pausemenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "..BREAK.."
+label_settings = SubResource("LabelSettings_onw4t")
+
+[node name="Re" type="Button" parent="pause/pausemenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 70.0
+offset_right = 150.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Resume"
+
+[node name="Button2" type="Button" parent="pause/pausemenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 137.0
+offset_right = 150.0
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "main menu"
+
+[node name="impulse" type="Area3D" parent="." groups=["puni"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="impulse"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00971, 0)
+shape = SubResource("SphereShape3D_wmm4n")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="impulse"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03399, 0)
+radius = 0.2
+height = 1.04322
+material = SubResource("StandardMaterial3D_pwfit")
+
+[node name="retact" type="Timer" parent="impulse"]
+wait_time = 0.5
+one_shot = true
+
+[node name="shiled" type="Area3D" parent="."]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="shiled"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13966, 0)
+shape = SubResource("SphereShape3D_a0xfd")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="shiled"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18278, 0)
+material_override = SubResource("StandardMaterial3D_axtbs")
+radius = 1.83304
+radial_segments = 16
+rings = 8
+
+[node name="backup" type="Timer" parent="shiled"]
+wait_time = 6.0
+one_shot = true
+
+[node name="death" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 3
+visible = false
+script = ExtResource("12_88r22")
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="death"]
+copy_mode = 0
+
+[node name="ColorRect" type="ColorRect" parent="death"]
+material = SubResource("ShaderMaterial_i8e5m")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.704315, 0.291687, 2.88785e-07, 1)
+
+[node name="Label" type="Label" parent="death/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "..YOU DIED.."
+label_settings = SubResource("LabelSettings_onw4t")
+
+[node name="Button" type="Button" parent="death/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 70.0
+offset_right = 150.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Rewind"
+
+[node name="Button2" type="Button" parent="death/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 137.0
+offset_right = 150.0
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "main menu"
+
+[node name="Camera3D" type="Camera3D" parent="death"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o34o1")
+}
 
 [connection signal="timeout" from="coolof" to="." method="_on_coolof_timeout"]
 [connection signal="pressed" from="CanvasLayer/Virtual Joystick2/TouchScreenButton" to="." method="_on_touch_screen_button_pressed"]
@@ -457,4 +795,14 @@ one_shot = true
 [connection signal="body_entered" from="hitarea" to="." method="_on_hitarea_body_entered"]
 [connection signal="body_exited" from="hitarea" to="." method="_on_hitarea_body_exited"]
 [connection signal="timeout" from="hitarea/kill" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="hitarea2" to="." method="_on_hitarea_2_area_entered"]
 [connection signal="timeout" from="reload" to="." method="_on_reload_timeout"]
+[connection signal="pressed" from="pause/pausemenu/Re" to="pause" method="_on_re_pressed"]
+[connection signal="pressed" from="pause/pausemenu/Button2" to="death" method="_on_button_2_pressed"]
+[connection signal="timeout" from="impulse/retact" to="." method="_on_retact_timeout"]
+[connection signal="body_entered" from="shiled" to="." method="_on_shiled_body_entered"]
+[connection signal="timeout" from="shiled/backup" to="." method="_on_backup_timeout"]
+[connection signal="pressed" from="death/ColorRect/Button" to="death" method="_on_button_pressed"]
+[connection signal="pressed" from="death/ColorRect/Button2" to="death" method="_on_button_2_pressed"]
+
+[editable path="Char"]

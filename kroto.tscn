@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://kroto.gd" id="1_rxhpc"]
 [ext_resource type="Texture2D" uid="uid://c7tqykiakauwn" path="res://assets/smoke_02.png" id="2_yjay0"]
 [ext_resource type="Texture2D" uid="uid://o6adprb373f4" path="res://assets/fire_01.png" id="3_vpg5g"]
-[ext_resource type="AudioStream" uid="uid://cswb3p74jsqui" path="res://sfx/blasteffect.wav" id="4_qgyl8"]
+[ext_resource type="AudioStream" uid="uid://dj5n5nsv7d2wa" path="res://sfx/explosion-47821.mp3" id="4_f0ppg"]
 [ext_resource type="Texture2D" uid="uid://b50x26my3dau2" path="res://assets/pointer.png" id="5_5xrbq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ctji6"]
@@ -228,7 +228,8 @@ wait_time = 5.0
 one_shot = true
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4_qgyl8")
+stream = ExtResource("4_f0ppg")
+bus = &"sfx"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

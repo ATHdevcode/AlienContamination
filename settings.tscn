@@ -1,0 +1,120 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhduosd0i3orw"]
+
+[ext_resource type="Script" path="res://settings.gd" id="1_7aph4"]
+[ext_resource type="Theme" uid="uid://cjfdcawuh7tkj" path="res://tip.tres" id="1_8kchc"]
+
+[node name="Settings" type="Node2D"]
+script = ExtResource("1_7aph4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_direction = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 1190.55
+offset_bottom = 670.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+color = Color(0.0353462, 0.0353462, 0.0353462, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Container" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 79.0
+offset_top = 144.0
+offset_right = 1142.0
+offset_bottom = 144.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container"]
+layout_direction = 1
+layout_mode = 2
+offset_right = 1080.0
+offset_bottom = 54.0
+
+[node name="sfx" type="CheckButton" parent="Container/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_8kchc")
+button_pressed = true
+text = "SFX"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Container"]
+layout_direction = 1
+layout_mode = 2
+offset_top = 67.0
+offset_right = 1080.0
+offset_bottom = 121.0
+
+[node name="music" type="CheckButton" parent="Container/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_8kchc")
+button_pressed = true
+text = "Music"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Container"]
+layout_direction = 1
+layout_mode = 2
+offset_top = 134.0
+offset_right = 1080.0
+offset_bottom = 188.0
+
+[node name="CheckButton" type="CheckButton" parent="Container/VBoxContainer3"]
+layout_mode = 2
+tooltip_text = "Continue Playing without death screen."
+theme = ExtResource("1_8kchc")
+text = "Instant Replay"
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="Container"]
+layout_direction = 1
+layout_mode = 2
+offset_top = 201.0
+offset_right = 1080.0
+offset_bottom = 255.0
+
+[node name="Button" type="Button" parent="Container/VBoxContainer4"]
+layout_mode = 2
+theme = ExtResource("1_8kchc")
+text = "Camera Senstivity (Mobile only)"
+
+[node name="HSlider" type="HSlider" parent="Container/VBoxContainer4"]
+layout_mode = 2
+min_value = 2.0
+max_value = 10.0
+value = 4.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer4"]
+layout_mode = 2
+
+[node name="back" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -2.0
+offset_top = 536.0
+offset_right = 1191.0
+offset_bottom = 576.0
+size_flags_vertical = 8
+
+[node name="prev" type="Button" parent="back"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -158.5
+offset_top = -12.0
+offset_right = 127.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8kchc")
+text = "BACK"
+
+[connection signal="toggled" from="Container/VBoxContainer/sfx" to="." method="_on_sfx_toggled"]
+[connection signal="toggled" from="Container/VBoxContainer2/music" to="." method="_on_music_toggled"]
+[connection signal="toggled" from="Container/VBoxContainer3/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="back/prev" to="." method="_on_prev_pressed"]

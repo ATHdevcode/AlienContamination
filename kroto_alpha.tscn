@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bi1yyogptue1p"]
+[gd_scene load_steps=17 format=3 uid="uid://bi1yyogptue1p"]
 
 [ext_resource type="Script" path="res://kroto_alpha.gd" id="1_fl8bl"]
 [ext_resource type="FontFile" uid="uid://d38sawp4yl5h3" path="res://Lilita_One/LilitaOne-Regular.ttf" id="2_pvo52"]
@@ -29,7 +29,7 @@ radius = 2.67635
 [sub_resource type="SphereShape3D" id="SphereShape3D_3yae8"]
 radius = 1.04133
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_svyy2"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tmnt"]
 transparency = 1
 shading_mode = 0
 albedo_color = Color(0.847931, 0.117497, 0.38673, 1)
@@ -37,7 +37,7 @@ albedo_texture = ExtResource("3_atssx")
 billboard_mode = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_slani"]
-material = SubResource("StandardMaterial3D_svyy2")
+material = SubResource("StandardMaterial3D_5tmnt")
 size = Vector2(3, 3)
 
 [sub_resource type="Animation" id="Animation_4bq4m"]
@@ -172,6 +172,9 @@ _data = {
 "dead": SubResource("Animation_dp87f")
 }
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_qw875"]
+radius = 27.8945
+
 [node name="krotoAlpha" type="CharacterBody3D"]
 script = ExtResource("1_fl8bl")
 
@@ -242,11 +245,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65701, 0, 0)
 
 [node name="bullet" type="Timer" parent="."]
 wait_time = 0.8
-autostart = true
 
 [node name="turn" type="Timer" parent="."]
 wait_time = 5.0
-autostart = true
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(-0.0523011, 0, 0.998631, 0, 1, 0, -0.998631, 0, -0.0523011, -0.0192724, 0.708898, 2.15838)
@@ -260,7 +261,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.992364, -0.01833, -3.46311)
 [node name="supper" type="Timer" parent="."]
 wait_time = 11.0
 one_shot = true
-autostart = true
 
 [node name="Timer" type="Timer" parent="supper"]
 wait_time = 3.0
@@ -324,6 +324,11 @@ libraries = {
 [node name="remove" type="Timer" parent="."]
 wait_time = 3.0
 
+[node name="start" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="start"]
+shape = SubResource("SphereShape3D_qw875")
+
 [connection signal="timeout" from="bullet" to="." method="_on_bullet_timeout"]
 [connection signal="timeout" from="turn" to="." method="_on_turn_timeout"]
 [connection signal="timeout" from="supper" to="." method="_on_supper_timeout"]
@@ -331,3 +336,5 @@ wait_time = 3.0
 [connection signal="area_entered" from="hitter" to="." method="_on_hitter_area_entered"]
 [connection signal="area_entered" from="hitter2" to="." method="_on_hitter_2_area_entered"]
 [connection signal="timeout" from="remove" to="." method="_on_remove_timeout"]
+[connection signal="area_entered" from="start" to="." method="_on_start_area_entered"]
+[connection signal="body_entered" from="start" to="." method="_on_start_body_entered"]

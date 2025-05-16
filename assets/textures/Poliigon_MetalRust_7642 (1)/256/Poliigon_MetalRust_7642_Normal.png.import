@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://gyq4cbda1hi1"
 path.s3tc="res://.godot/imported/Poliigon_MetalRust_7642_Normal.png-ae6e161f1ebe01bc6aa3faf71b25a76e.s3tc.ctex"
+path.etc2="res://.godot/imported/Poliigon_MetalRust_7642_Normal.png-ae6e161f1ebe01bc6aa3faf71b25a76e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/Poliigon_MetalRust_7642 (1)/256/Poliigon_MetalRust_7642_Normal.png"
-dest_files=["res://.godot/imported/Poliigon_MetalRust_7642_Normal.png-ae6e161f1ebe01bc6aa3faf71b25a76e.s3tc.ctex"]
+dest_files=["res://.godot/imported/Poliigon_MetalRust_7642_Normal.png-ae6e161f1ebe01bc6aa3faf71b25a76e.s3tc.ctex", "res://.godot/imported/Poliigon_MetalRust_7642_Normal.png-ae6e161f1ebe01bc6aa3faf71b25a76e.etc2.ctex"]
 
 [params]
 

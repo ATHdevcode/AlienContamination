@@ -8,8 +8,17 @@ const ASTRIOD_2 = preload("res://astriod_2.tscn")
 
 const SPEED = 4.0;
 
-var health = 500
+var health = 650
 
+const maxhealth = 650
+
+var playerdam = 8
+
+signal dead
+
+
+func _ready() -> void:
+	$AnimationPlayer.play("RESET")
 
 
 func _process(delta: float) -> void:
@@ -61,7 +70,7 @@ var radius = 12
 
 func _on_fall_timeout() -> void:
 	var point = Marker3D.new()
-	if angle >= 180:
+	if angle >= 360:
 		angle = 0
 	else:
 		angle += 20
@@ -88,6 +97,8 @@ var angle2 = 0
 var asteriodamt = 1
 
 func _on_fall_2_timeout() -> void:
+	radius = randi_range(5, 14)
+	asteriodamt = min(asteriodamt, 20)
 	for i in range(asteriodamt):
 		var point = Marker3D.new()
 		
@@ -119,7 +130,7 @@ func _on_amt_timeout() -> void:
 
 func _on_hita_area_entered(area: Area3D) -> void:
 	if area.is_in_group("kill"):
-		health -= 8
+		health -= playerdam
 
 
 func _on_supper_timeout() -> void:
@@ -143,3 +154,47 @@ func _on_supper_timeout() -> void:
 	get_parent().add_child(inst)
 	
 	get_parent().add_child(point)
+	
+	playerdam = 15
+	
+	$weak.start()
+	$AnimationPlayer.play("weak")
+
+
+func _on_sup_timeout() -> void:
+	$supper.start()
+
+
+func _on_secfall_timeout() -> void:
+	$fall2.start()
+
+
+func _on_fall_3_timeout() -> void:
+	var point = Marker3D.new()
+	
+	
+	point.position.z =  get_parent().get_node("player").position.z
+	point.position.x = get_parent().get_node("player").position.x
+	point.position.y = global_position.y - 5
+	
+	var mesh = Sprite3D.new()
+	mesh.texture = load("res://assets/pointer.png")
+	point.add_child(mesh)
+	
+	var inst = ASTRIOD.instantiate()
+	inst.position.y = global_position.y + 50
+	inst.targert_location = point.position
+	inst.target = point;
+	
+	get_parent().add_child(inst)
+	
+	get_parent().add_child(point)
+
+
+func _on_thir_timeout() -> void:
+	$fall3.start()
+
+
+func _on_weak_timeout() -> void:
+	$AnimationPlayer.stop()
+	playerdam = 8

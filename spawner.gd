@@ -5,6 +5,8 @@ const KROTO = preload("res://kroto.tscn")
 
 var max_spawn = -1;
 
+var spawn = true
+
 func _ready() -> void:
 	Global.totalenemy = 0;
 	Global.total_kills = 0;
@@ -20,8 +22,8 @@ func _process(delta: float) -> void:
 
 func _on_timer_timeout() -> void:
 	
-	#max_spawn = max(floor((Global.total_kills) / 4), 2)
-	if Global.totalenemy <= max_spawn:
+	max_spawn = max(floor((Global.total_kills) / 4), 2)
+	if Global.totalenemy <= max_spawn and spawn:
 		var inst = KROTO.instantiate();
 		inst.position = position
 		inst.life = randf_range(1.0, 4.0);

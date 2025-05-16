@@ -1,0 +1,314 @@
+[gd_scene load_steps=19 format=3 uid="uid://2latudesgnx0"]
+
+[ext_resource type="PackedScene" uid="uid://qkm6l50hhmrv" path="res://boss.tscn" id="1_l7qnr"]
+[ext_resource type="Script" path="res://kroto_bolt.gd" id="2_4e0p7"]
+[ext_resource type="Texture2D" uid="uid://h3urmcse47iw" path="res://assets/textures/Poliigon_MetalGalvanizedZinc_7184/512/Poliigon_MetalGalvanizedZinc_7184_BaseColor.jpg" id="2_inek2"]
+[ext_resource type="Texture2D" uid="uid://blqkct77halde" path="res://assets/textures/Poliigon_MetalGalvanizedZinc_7184/512/Poliigon_MetalGalvanizedZinc_7184_Normal.png" id="3_8odj0"]
+[ext_resource type="Texture2D" uid="uid://cghdw11i16sfd" path="res://assets/textures/Poliigon_MetalGalvanizedZinc_7184/Poliigon_MetalGalvanizedZinc_7184_Preview1.png" id="4_n5uys"]
+[ext_resource type="Texture2D" uid="uid://o6adprb373f4" path="res://assets/fire_01.png" id="6_7sxh5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_74icy"]
+radius = 2.45175
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_te8ut"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mtcws"]
+albedo_color = Color(0.398051, 0.122523, 0.746683, 1)
+albedo_texture = ExtResource("2_inek2")
+metallic = 1.0
+normal_enabled = true
+normal_texture = ExtResource("3_8odj0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_seyrp"]
+albedo_color = Color(0.214948, 0.171299, 0.353564, 1)
+roughness_texture = ExtResource("4_n5uys")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehc6q"]
+albedo_color = Color(2, 0.037, 0.14, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0oc1s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ulwc"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.235294)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_svyy2"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.847931, 0.117497, 0.38673, 1)
+albedo_texture = ExtResource("6_7sxh5")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_d2a37"]
+material = SubResource("StandardMaterial3D_svyy2")
+size = Vector2(3, 3)
+
+[sub_resource type="Animation" id="Animation_x4bd2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGSphere3D:material_overlay:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("boom:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("rings:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -0.762185)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("rings2:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0.747873)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("rings:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("rings2:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_sukes"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGSphere3D:material_overlay:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("boom:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("rings:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.762185), Vector3(0, 0, 0.0309272)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("rings2:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.747873), Vector3(0, 0, 0.0513472)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("rings:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(0.4, 0.4, 0.4)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("rings2:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(0.4, 0.4, 0.4)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bphv5"]
+_data = {
+"RESET": SubResource("Animation_x4bd2"),
+"die": SubResource("Animation_sukes")
+}
+
+[node name="krotoBOLT" instance=ExtResource("1_l7qnr")]
+script = ExtResource("2_4e0p7")
+
+[node name="ProgressBar" parent="CanvasLayer" index="0"]
+visible = false
+max_value = 500.0
+
+[node name="Label" parent="CanvasLayer/ProgressBar" index="0"]
+text = "KrotoBOLT"
+
+[node name="CollisionShape3D" parent="hitter" index="0"]
+shape = SubResource("SphereShape3D_74icy")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." index="2"]
+material_overlay = SubResource("StandardMaterial3D_te8ut")
+radius = 1.0
+material = SubResource("StandardMaterial3D_mtcws")
+
+[node name="rings" type="CSGTorus3D" parent="." index="3"]
+transform = Transform3D(0.723329, 0.690504, 0, -0.690504, 0.723329, 0, 0, 0, 1, 0, 0, 0)
+inner_radius = 2.19758
+outer_radius = 1.93513
+sides = 12
+ring_sides = 12
+material = SubResource("StandardMaterial3D_seyrp")
+
+[node name="rings2" type="CSGTorus3D" parent="." index="4"]
+transform = Transform3D(0.733137, -0.680081, 0, 0.680081, 0.733137, 0, 0, 0, 1, 0, 0, 0)
+inner_radius = 2.19758
+outer_radius = 1.93513
+sides = 12
+ring_sides = 12
+material = SubResource("StandardMaterial3D_seyrp")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.16985, 0.552325, -0.539289)
+polygon = PackedVector2Array(0, 0, 0.468359, 0.194059, 0.253257, 0.41014, 1.02344, 0.142686)
+depth = 0.1
+material = SubResource("StandardMaterial3D_ehc6q")
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="." index="6"]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 1.27274, 0.552325, -0.644169)
+polygon = PackedVector2Array(0, 0, 0.468359, 0.194059, 0.253257, 0.41014, 1.02344, 0.142686)
+depth = 0.1
+material = SubResource("StandardMaterial3D_ehc6q")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="7"]
+transform = Transform3D(0.250127, 0, -0.968213, 0, 1, 0, 0.968213, 0, 0.250127, -0.636468, 0.76977, -0.512892)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." index="8"]
+transform = Transform3D(0.250127, 0, -0.968213, 0, 1, 0, 0.968213, 0, 0.250127, 0.674631, 0.743392, -0.4958)
+
+[node name="Timer" type="Timer" parent="." index="9"]
+wait_time = 3.0
+autostart = true
+
+[node name="zone" type="Area3D" parent="." index="10" groups=["slow"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="zone" index="0"]
+shape = SubResource("SphereShape3D_0oc1s")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="zone" index="1"]
+cast_shadow = 0
+radial_segments = 14
+rings = 8
+material = SubResource("StandardMaterial3D_2ulwc")
+
+[node name="zonestart" type="Timer" parent="." index="11"]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="zoneend" type="Timer" parent="." index="12"]
+wait_time = 5.0
+one_shot = true
+
+[node name="ui" type="Marker3D" parent="." index="13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0718709, 2.14653, 0.149034)
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." index="14"]
+
+[node name="boom" type="CPUParticles3D" parent="." index="15"]
+transform = Transform3D(-0.476821, -0.879, 0, 0.879, -0.476821, 0, 0, 0, 1, 0.191075, 0.860659, -0.16804)
+emitting = false
+amount = 40
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.5
+mesh = SubResource("QuadMesh_d2a37")
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+scale_amount_min = 1.2
+scale_amount_max = 1.2
+
+[node name="death" type="AnimationPlayer" parent="." index="16"]
+libraries = {
+"": SubResource("AnimationLibrary_bphv5")
+}
+
+[connection signal="area_entered" from="hitter" to="." method="_on_hitter_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="zonestart" to="." method="_on_zonestart_timeout"]
+[connection signal="timeout" from="zoneend" to="." method="_on_zoneend_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
+[connection signal="animation_finished" from="death" to="." method="_on_death_animation_finished"]

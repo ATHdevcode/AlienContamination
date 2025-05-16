@@ -6,6 +6,10 @@ extends CanvasLayer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
+	
+
+			
+		
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -14,6 +18,9 @@ func _input(event: InputEvent) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
+	
+	
 	#$ColorRect.position.x = get_parent().get_node("hole").position.x
 	
 	$ProgressBar.value = get_parent().playerhealth
@@ -22,23 +29,31 @@ func _process(delta: float) -> void:
 	$ProgressBar3.value = get_parent().levelPoints
 	$Label3.text = "Level: "+str(get_parent().level)
 	
-	for  i in $bulletbox.get_children():
+	for  i in $VFlowContainer/bulletbox.get_children():
 		i.queue_free()
-	#
-	$bulletbox.scale.x = 7.0/(get_parent().maxbullets+1.0)
 	
 	
 	
-	#print($bulletbox.position.x)
+
+	
+	
+	
+	#print($VFlowContainer/bulletbox.position.x)
 	for i in range(get_parent().bullets):
-		var bulletui = TextureButton.new()
+		var bulletui = TextureRect.new()
 		
-		bulletui.texture_normal = load("res://assets/ui/bulletui.png")
+		bulletui.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		bulletui.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
 		
-		$bulletbox.add_child(bulletui)
+		bulletui.custom_minimum_size.x = 10
+		bulletui.custom_minimum_size.y = 20
+		
+		bulletui.texture = load("res://assets/ui/bulletui.png")
+		
+		$VFlowContainer/bulletbox.add_child(bulletui)
 	
 	
 	var tween = get_tree().create_tween();
 	tween.tween_property($ProgressBar2, "value", $ProgressBar.value, 1.5)
-	$Label.text = "KILLS: "+str(Global.total_kills)
+	$ColorRect3/VBoxContainer/Label.text = "KILLS: "+str(Global.total_kills)
 	#$ColorRect.position = get_parent().get_node("Head/Camera3D").unproject_position(get_parent().get_node("hole").global_position)

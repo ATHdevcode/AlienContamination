@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://fw700l6q7ikn"]
+
+[ext_resource type="Shader" path="res://transition.gdshader" id="1_685pp"]
+[ext_resource type="Script" path="res://transition.gd" id="1_nky1f"]
+[ext_resource type="Texture2D" uid="uid://cmeaqltc13ur3" path="res://assets/texturetran.png" id="3_oc14p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ev0mv"]
+shader = ExtResource("1_685pp")
+shader_parameter/change = 0.0
+
+[sub_resource type="Animation" id="Animation_ivglb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect3:material:shader_parameter/change")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_7jy7q"]
+resource_name = "tr"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect3:material:shader_parameter/change")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.933333, 1.16667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 0.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"changescene"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jsmei"]
+_data = {
+"RESET": SubResource("Animation_ivglb"),
+"tr": SubResource("Animation_7jy7q")
+}
+
+[node name="Transition" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_nky1f")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+offset_right = 1205.0
+offset_bottom = 662.0
+
+[node name="ColorRect3" type="TextureRect" parent="."]
+modulate = Color(0.368049, 0, 0.15223, 1)
+material = SubResource("ShaderMaterial_ev0mv")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_oc14p")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jsmei")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

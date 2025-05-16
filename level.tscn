@@ -1,23 +1,18 @@
-[gd_scene load_steps=54 format=3 uid="uid://ft6q7qiga7ab"]
+[gd_scene load_steps=36 format=3 uid="uid://ft6q7qiga7ab"]
 
 [ext_resource type="Texture2D" uid="uid://y8os4hhsplns" path="res://assets/texture01.png" id="1_e6og4"]
 [ext_resource type="Script" path="res://level.gd" id="1_l2pqv"]
 [ext_resource type="Script" path="res://base.gd" id="1_sjd2e"]
-[ext_resource type="Texture2D" uid="uid://d0am73cjpwhqb" path="res://assets/texture2.png" id="2_0gmb2"]
-[ext_resource type="Texture2D" uid="uid://4xqe6krda28e" path="res://assets/texture3.png" id="3_88t56"]
-[ext_resource type="Texture2D" uid="uid://ca74g46rv1j1a" path="res://assets/texture4.png" id="4_2qmk0"]
-[ext_resource type="Texture2D" uid="uid://clsskhp2bvyg5" path="res://assets/texture5.png" id="5_im1rf"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="7_3o8jh"]
 [ext_resource type="Shader" path="res://level.gdshader" id="7_rn5q4"]
 [ext_resource type="PackedScene" uid="uid://bfsmprcgkty17" path="res://spawner.tscn" id="8_eb2gp"]
 [ext_resource type="Script" path="res://upgrade.gd" id="11_50oin"]
 [ext_resource type="PackedScene" uid="uid://2tbfawuaa0qo" path="res://volt.tscn" id="11_anlq1"]
-[ext_resource type="FontFile" uid="uid://d38sawp4yl5h3" path="res://Lilita_One/LilitaOne-Regular.ttf" id="12_w2xtv"]
+[ext_resource type="FontFile" uid="uid://c0ovyae7rjh1a" path="res://Lilita_One,Sansation/Sansation/Sansation-Bold.ttf" id="13_hbl1w"]
 [ext_resource type="Texture2D" uid="uid://bu3487qorimqs" path="res://assets/star_08.png" id="13_u5qbj"]
 [ext_resource type="PackedScene" uid="uid://dpj432gkfo61v" path="res://autokill.tscn" id="14_6tuek"]
 [ext_resource type="PackedScene" uid="uid://bitkw328opd3p" path="res://city.tscn" id="16_1wsym"]
 [ext_resource type="PackedScene" uid="uid://cgoe0famsltsh" path="res://hub.tscn" id="17_dtr1d"]
-[ext_resource type="PackedScene" uid="uid://dibjg6j0olih2" path="res://kroto_fall.tscn" id="18_rt88q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uc4t1"]
 albedo_texture = ExtResource("1_e6og4")
@@ -34,57 +29,6 @@ material = SubResource("StandardMaterial3D_erxpy")
 radius = 0.1
 height = 0.2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3svft"]
-albedo_texture = ExtResource("2_0gmb2")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gawe8"]
-albedo_texture = ExtResource("2_0gmb2")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7hhu"]
-albedo_texture = ExtResource("2_0gmb2")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7t1uf"]
-albedo_texture = ExtResource("2_0gmb2")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjnaa"]
-albedo_texture = ExtResource("2_0gmb2")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wc4oe"]
-albedo_texture = ExtResource("2_0gmb2")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g2316"]
-albedo_texture = ExtResource("3_88t56")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0sial"]
-albedo_texture = ExtResource("3_88t56")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fyffo"]
-albedo_texture = ExtResource("3_88t56")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x48mh"]
-albedo_texture = ExtResource("3_88t56")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y2oym"]
-albedo_texture = ExtResource("4_2qmk0")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wshwj"]
-albedo_texture = ExtResource("4_2qmk0")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t3ypx"]
-albedo_texture = ExtResource("4_2qmk0")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7smli"]
-albedo_texture = ExtResource("4_2qmk0")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qu2m1"]
-albedo_texture = ExtResource("5_im1rf")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bh4k3"]
-albedo_texture = ExtResource("4_2qmk0")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8awx1"]
-albedo_texture = ExtResource("5_im1rf")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fl4ip"]
 shader = ExtResource("7_rn5q4")
 shader_parameter/vertical_sections = 21
@@ -99,6 +43,8 @@ sky_material = SubResource("ShaderMaterial_fl4ip")
 background_mode = 2
 background_color = Color(0.116127, 0.116127, 0.116127, 1)
 sky = SubResource("Sky_kgfon")
+ambient_light_color = Color(0.802214, 0.289099, 1, 1)
+ambient_light_sky_contribution = 0.97
 glow_enabled = true
 glow_bloom = 0.21
 fog_light_color = Color(0.0633089, 0.433868, 0.480295, 1)
@@ -107,14 +53,14 @@ fog_density = 0.009
 fog_height = 374.99
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8ha4x"]
-size = Vector3(121.569, 34.2342, 101.333)
+size = Vector3(505.363, 34.2342, 414.379)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n6gi8"]
 height = 7.14363
 radius = 2.04707
 
 [sub_resource type="LabelSettings" id="LabelSettings_6pmuj"]
-font = ExtResource("12_w2xtv")
+font = ExtResource("13_hbl1w")
 font_size = 30
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qfcog"]
@@ -178,6 +124,74 @@ tracks/0/keys = {
 _data = {
 "RESET": SubResource("Animation_mgnn3"),
 "spot": SubResource("Animation_8ihjm")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_l8gu4"]
+font = ExtResource("13_hbl1w")
+font_size = 50
+font_color = Color(1, 1, 0, 0.6)
+outline_size = 2
+shadow_size = 5
+
+[sub_resource type="Animation" id="Animation_ylh8e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_x1sf3"]
+resource_name = "blink"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.166667, 0.366667, 0.566667, 0.766667, 0.966667, 1.16667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k35dq"]
+_data = {
+"RESET": SubResource("Animation_ylh8e"),
+"blink": SubResource("Animation_x1sf3")
 }
 
 [node name="level" type="Node3D"]
@@ -253,184 +267,10 @@ color = Color(0.997334, 0.992304, 0.997862, 1)
 hue_variation_min = 0.17
 hue_variation_max = 0.17
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 1.5, 0.5)
-visible = false
-use_collision = true
-size = Vector3(1, 4, 24)
-material = SubResource("StandardMaterial3D_uc4t1")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.1202)
-operation = 2
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.12016)
-operation = 2
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.12016)
-operation = 2
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.12016)
-operation = 2
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.12016)
-operation = 2
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.120165)
-operation = 2
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.87984)
-operation = 2
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.87984)
-operation = 2
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.87984)
-operation = 2
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.87984)
-operation = 2
-
-[node name="CSGBox3D11" type="CSGBox3D" parent="CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.87984)
-operation = 2
-
-[node name="CSGBox3D12" type="CSGBox3D" parent="CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.87984)
-operation = 2
-
-[node name="Node" type="Node3D" parent="."]
-visible = false
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 2.5, -16.5)
-use_collision = true
-size = Vector3(1, 6, 16)
-material = SubResource("StandardMaterial3D_3svft")
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 2.5, -16.5)
-visibility_range_end = 70.0
-visibility_range_end_margin = 1.0
-use_collision = true
-size = Vector3(1, 6, 16)
-material = SubResource("StandardMaterial3D_gawe8")
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="Node"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 21, 5.5, -16.5)
-use_collision = true
-size = Vector3(1, 12, 16)
-material = SubResource("StandardMaterial3D_t7hhu")
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Node/CSGBox3D6"]
-transform = Transform3D(-1.58933e-08, -1, 0, 1, -1.58933e-08, 0, 0, 0, 1, 0, 0, 0)
-operation = 2
-radius = 2.0
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="Node"]
-transform = Transform3D(-4.37114e-08, -1, 0, 0, -8.88178e-16, 1, -1, 4.37114e-08, 0, 20.5, 1.5, -24.5)
-use_collision = true
-size = Vector3(1, 11, 8)
-material = SubResource("StandardMaterial3D_7t1uf")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 17, 12, -7)
-use_collision = true
-size = Vector3(1, 13, 1)
-material = SubResource("StandardMaterial3D_sjnaa")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 26, 12, -7)
-use_collision = true
-size = Vector3(1, 13, 1)
-material = SubResource("StandardMaterial3D_wc4oe")
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, 26, 19, 0)
-use_collision = true
-size = Vector3(1, 13, 1)
-material = SubResource("StandardMaterial3D_g2316")
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, 18, 19, 0)
-use_collision = true
-size = Vector3(1, 13, 1)
-material = SubResource("StandardMaterial3D_0sial")
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 22, 20.5, 8)
-use_collision = true
-size = Vector3(9, 13, 2)
-material = SubResource("StandardMaterial3D_fyffo")
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, -1, 4.37114e-08, 0, -4.37114e-08, -1, 22, 10.5, 15)
-use_collision = true
-size = Vector3(9, 23, 2)
-material = SubResource("StandardMaterial3D_x48mh")
-
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Node/CSGBox3D10"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.2, 0, -3, 1)
-operation = 2
-polygon = PackedVector2Array(-1, -1, 0, 1, 1, 2, 3, -1)
-
-[node name="CSGBox3D11" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 20, 16)
-use_collision = true
-size = Vector3(25, 1, 1)
-material = SubResource("StandardMaterial3D_y2oym")
-
-[node name="CSGBox3D12" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 10, 16)
-use_collision = true
-size = Vector3(5, 21, 1)
-material = SubResource("StandardMaterial3D_wshwj")
-
-[node name="CSGBox3D13" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 10, 16)
-use_collision = true
-size = Vector3(5, 21, 1)
-material = SubResource("StandardMaterial3D_t3ypx")
-
-[node name="CSGBox3D14" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 10, 16)
-use_collision = true
-size = Vector3(5, 21, 1)
-material = SubResource("StandardMaterial3D_7smli")
-
-[node name="CSGBox3D15" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 20, 29)
-use_collision = true
-size = Vector3(25, 1, 1)
-
-[node name="CSGBox3D16" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 10, 29)
-use_collision = true
-size = Vector3(5, 21, 1)
-material = SubResource("StandardMaterial3D_qu2m1")
-
-[node name="CSGBox3D17" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 10, 29)
-use_collision = true
-size = Vector3(5, 21, 1)
-material = SubResource("StandardMaterial3D_bh4k3")
-
-[node name="CSGBox3D18" type="CSGBox3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 10, 29)
-use_collision = true
-size = Vector3(5, 21, 1)
-material = SubResource("StandardMaterial3D_8awx1")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+editor_description = "013240
+
+0060ae"
 transform = Transform3D(-0.946091, -0.298809, -0.125, -0.184154, 0.178753, 0.966506, -0.266457, 0.937422, -0.224144, 4, 96.5534, 25)
 light_color = Color(0, 0.376471, 0.682353, 1)
 
@@ -615,10 +455,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 32, -6)
 [node name="hub" parent="." instance=ExtResource("17_dtr1d")]
 transform = Transform3D(-1, -6.18173e-08, -6.18173e-08, 0, 0.707107, -0.707107, 8.74228e-08, -0.707107, -0.707107, -24.8787, 37.9675, 44.3497)
 
-[node name="KrotoFALL" parent="." instance=ExtResource("18_rt88q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.2634, 35.3545, 10.5206)
+[node name="bossarea" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.8954, 33.8615, -1.36235)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -215.0
+offset_top = 113.0
+offset_right = 215.0
+offset_bottom = 171.0
+grow_horizontal = 2
+text = "BOSS HAS ARRIVED"
+label_settings = SubResource("LabelSettings_l8gu4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+"": SubResource("AnimationLibrary_k35dq")
+}
 
 [connection signal="timeout" from="base/CSGCylinder3D2/Timer" to="base" method="_on_timer_timeout"]
+[connection signal="levelupp" from="player" to="." method="_on_player_levelupp"]
+[connection signal="respawnboss" from="player" to="." method="_on_player_respawnboss"]
 [connection signal="rewardon" from="player" to="upgrade" method="_on_player_rewardon"]
 [connection signal="body_entered" from="upgrade" to="upgrade" method="_on_body_entered"]
 [connection signal="pressed" from="upgrade/CanvasLayer/Button" to="upgrade" method="_on_button_pressed"]
@@ -626,3 +488,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.2634, 35.3545, 10.5206)
 [connection signal="animation_finished" from="upgrade/SpotLight3D/AnimationPlayer" to="upgrade" method="_on_animation_player_animation_finished"]
 
 [editable path="player"]
+[editable path="player/Char"]

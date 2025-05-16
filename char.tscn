@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://chh1mcgvhj8ad"]
+
+[ext_resource type="PackedScene" uid="uid://cdp0c8qmks8cg" path="res://assets/Styloorobotcharacte fbx and gltfr/GLTFrobot/robot.gltf" id="1_t3h6i"]
+
+[node name="Char" instance=ExtResource("1_t3h6i")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/position = Vector3(-0.00203013, 0.859847, 0.00573903)
+bones/0/rotation = Quaternion(-0.000325361, -7.67351e-08, -7.67351e-08, 1)
+bones/1/position = Vector3(-4.2304e-07, 4.6944, 0.00027568)
+bones/1/rotation = Quaternion(0.000325364, -5.43322e-08, -5.44175e-08, 1)
+bones/2/rotation = Quaternion(0.524546, 0.480322, 0.483594, -0.510176)
+bones/3/rotation = Quaternion(0.0292596, -0.000969359, 0.702295, 0.711284)
+bones/5/rotation = Quaternion(-0.64532, 0.000644287, 0.00303227, 0.763906)
+bones/7/rotation = Quaternion(0.667256, -0.000670903, 0.00302654, 0.744822)
+bones/8/position = Vector3(1.00752, 2.57724, 0.206092)
+bones/8/rotation = Quaternion(-0.515926, 0.481915, 0.480436, 0.520346)
+bones/8/scale = Vector3(0.238849, 0.293498, 1.00595)
+bones/9/rotation = Quaternion(-0.00844092, -8.65522e-05, -0.661163, 0.750195)
+bones/10/rotation = Quaternion(0.000928419, -4.95044e-05, -0.00307542, 0.999995)
+bones/11/position = Vector3(2.28171, 3.61749, -1.62324)
+bones/11/rotation = Quaternion(-0.499837, -0.499837, -0.500163, 0.500163)
+bones/12/position = Vector3(-2.76912, 3.59301, -1.29293)
+bones/13/rotation = Quaternion(-0.706877, -2.49877e-07, -1.41519e-07, 0.707337)

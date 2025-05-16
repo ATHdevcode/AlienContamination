@@ -4,13 +4,17 @@ enum {
 	Speedup,
 	Bullletup,
 	Healthup,
-	Autokill
+	Autokill,
+	Loles,
+	Volt,
+	Impulse
 }
 
 var allupgardes = [Speedup,
 	Bullletup,
 	Healthup,
-	Autokill]
+	Autokill,
+	Impulse]
 	
 var autokillactive = false
 
@@ -37,7 +41,10 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node3D) -> void:
 
-	if body.name == "player" and body.reward > -10:
+	if body.name == "player" and body.reward > 0:
+		if body.level >= 3:
+			allupgardes.append(Volt)
+			allupgardes.append(Loles)
 		var clonedupdates = []
 		#clonedupdates.assign(allupgardes)
 		clonedupdates.append_array(allupgardes)
@@ -73,6 +80,18 @@ func _on_body_entered(body: Node3D) -> void:
 				button.tooltip_text = "Autokill\n-----------\nFor each enemy you kill there is 10% chance to spawn a autokill"
 				button.texture_normal = load("res://assets/card4.png")
 				button.pressed.connect(_autokill)
+			elif clonedupdates[index] == Loles:
+				button.tooltip_text = "Loles\n-----------\nEach time you get hurt there is 40% chance that a Loles will spawn"
+				button.texture_normal = load("res://assets/card6.png")
+				button.pressed.connect(_loles)
+			elif clonedupdates[index] == Volt:
+				button.tooltip_text = "Volt Shiled\n-----------\nGet yourself a shiled around you"
+				button.texture_normal = load("res://assets/card5.png")
+				button.pressed.connect(_voltshiled)
+			elif clonedupdates[index] == Impulse:
+				button.tooltip_text = "Pulse of Pain\n-----------\nWhen you are really hurt, a Pulse kills all."
+				button.texture_normal = load("res://assets/card7.png")
+				button.pressed.connect(_impulse)
 				
 			clonedupdates.remove_at(index)
 				
@@ -80,7 +99,7 @@ func _on_body_entered(body: Node3D) -> void:
 		
 		#clonedupdates.assign(allupgardes)
 		clonedupdates.append_array(allupgardes)
-		print(clonedupdates)
+		
 		$CanvasLayer.show()
 		body.reward -= 1;
 		$Camera3D.current = true;
@@ -131,6 +150,18 @@ func _autokill():
 		if i.is_in_group("kroto"):
 			i.autokillspawn = true
 	print("Autokill active")
+	applayandcontinue(true)
+
+func _loles():
+	$"../player".loles = true
+	applayandcontinue(true)
+
+func _voltshiled():
+	$"../player".shieldup = true
+	applayandcontinue(true)
+
+func _impulse():
+	$"../player".impulse = true
 	applayandcontinue(true)
 
 

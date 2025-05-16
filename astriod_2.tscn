@@ -6,7 +6,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_loq88"]
 transparency = 1
 shading_mode = 0
-albedo_color = Color(0.792, 0, 0.117, 1)
+albedo_color = Color(0.791513, 0, 0.116697, 1)
 albedo_texture = ExtResource("2_ykc13")
 billboard_mode = 1
 
@@ -36,7 +36,7 @@ radial_segments = 4
 rings = 4
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mgcb3"]
-radius = 44.6161
+radius = 30.0072
 
 [node name="Astriod2" groups=["extra"] instance=ExtResource("1_73s2k")]
 
@@ -61,7 +61,7 @@ mesh = SubResource("SphereMesh_g7o87")
 wait_time = 3.0
 
 [node name="CollisionShape3D" parent="." index="5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.5313)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.93036)
 shape = SubResource("SphereShape3D_mgcb3")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." index="6"]

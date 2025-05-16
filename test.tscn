@@ -1,55 +1,58 @@
-[gd_scene load_steps=8 format=3 uid="uid://ca7nfncth4h54"]
+[gd_scene load_steps=6 format=3 uid="uid://ca7nfncth4h54"]
 
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="1_i2mgx"]
-[ext_resource type="PackedScene" uid="uid://cgoe0famsltsh" path="res://hub.tscn" id="2_4chcq"]
-[ext_resource type="Shader" path="res://level.gdshader" id="3_xt5kc"]
-[ext_resource type="PackedScene" uid="uid://dibjg6j0olih2" path="res://kroto_fall.tscn" id="6_mjpfy"]
+[ext_resource type="Sky" uid="uid://cr86yip0xhi22" path="res://nice.tres" id="1_ykptk"]
+[ext_resource type="PackedScene" uid="uid://cgoe0famsltsh" path="res://hub.tscn" id="4_5a1ey"]
+[ext_resource type="PackedScene" uid="uid://bitkw328opd3p" path="res://city.tscn" id="5_yqpvm"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xt4dh"]
-shader = ExtResource("3_xt5kc")
-shader_parameter/vertical_sections = 21
-shader_parameter/star_size = 0.01
-shader_parameter/star_falloff = 4.0
-shader_parameter/margin = 0.05
-
-[sub_resource type="Sky" id="Sky_mna3x"]
-sky_material = SubResource("ShaderMaterial_xt4dh")
-
-[sub_resource type="Environment" id="Environment_vnh0f"]
+[sub_resource type="Environment" id="Environment_h8q26"]
 background_mode = 2
-background_color = Color(0.116127, 0.116127, 0.116127, 1)
-sky = SubResource("Sky_mna3x")
-glow_enabled = true
-glow_bloom = 0.21
-fog_light_color = Color(0.0633089, 0.433868, 0.480295, 1)
-fog_light_energy = 0.09
-fog_density = 0.009
-fog_height = 374.99
+sky = ExtResource("1_ykptk")
+tonemap_mode = 2
 
 [node name="test" type="Node3D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h8q26")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+light_color = Color(0, 0.556863, 0.752941, 1)
+light_angular_distance = 0.5
+shadow_opacity = 0.27
+
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.67166, 0, -4.73669)
-visible = false
 use_collision = true
-size = Vector3(65.9043, 1, 51.1562)
+size = Vector3(99.1865, 1, 111.988)
 
 [node name="player" parent="." instance=ExtResource("1_i2mgx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.82816, 0.475018, 0.759607)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.40636, 17.7985, 24.7902)
 
-[node name="CSGBox3D18" type="CSGBox3D" parent="."]
-transform = Transform3D(-4.37114e-08, -0.707107, -0.707107, 0, 0.707107, -0.707107, 1, -3.09086e-08, -3.09086e-08, 7.94779, 16.6281, 0.653214)
+[node name="CSGBox3D2" type="CSGBox3D" parent="." groups=["wall"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.48656, 3.03174, -7.57766)
 use_collision = true
-size = Vector3(6.354, 0.705933, 18.2222)
+size = Vector3(16.0601, 7.06348, 1)
 
-[node name="hub" parent="." instance=ExtResource("2_4chcq")]
+[node name="CSGBox3D3" type="CSGBox3D" parent="." groups=["wall"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.4288, 9.20782, 26.0377)
+use_collision = true
+size = Vector3(16.0601, 19.4156, 1)
 
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.946091, -0.298809, -0.125, -0.184154, 0.178753, 0.966506, -0.266457, 0.937422, -0.224144, 4, 96.5534, 25)
-light_color = Color(0, 0.376471, 0.682353, 1)
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+position = Vector2(578, 302)
+scale = Vector2(6.78, 4.02)
+copy_mode = 2
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_vnh0f")
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.225, 23.6911, 3.39633)
+light_energy = 2.0
 
-[node name="KrotoFALL" parent="." instance=ExtResource("6_mjpfy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.623814, 3.98229, 1.46314)
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.4748, 22.3905, 15.1909)
+light_energy = 2.0
+
+[node name="hub" parent="." instance=ExtResource("4_5a1ey")]
+transform = Transform3D(-4.37114e-08, -0.707107, -0.707107, 0, 0.707107, -0.707107, 1, -3.09086e-08, -3.09086e-08, -3.24306, 6.48011, -6.90495)
+
+[node name="city" parent="." instance=ExtResource("5_yqpvm")]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://xl7qlrvd4wvw"]
+[gd_scene load_steps=13 format=3 uid="uid://xl7qlrvd4wvw"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_l2d3o"]
 [ext_resource type="Texture2D" uid="uid://wdmhdw4wnktr" path="res://cover.png" id="1_nktx7"]
 [ext_resource type="FontFile" uid="uid://d38sawp4yl5h3" path="res://Lilita_One/LilitaOne-Regular.ttf" id="2_1kbpl"]
-[ext_resource type="AudioStream" uid="uid://bigwq33rxf0ck" path="res://sfx/Alien Contamination.mp3" id="4_3io5k"]
+[ext_resource type="Texture2D" uid="uid://c3w5e1p16mat2" path="res://newcover.png" id="3_hoqtx"]
 [ext_resource type="Theme" uid="uid://cjfdcawuh7tkj" path="res://tip.tres" id="4_hs25v"]
+[ext_resource type="FontFile" uid="uid://c0ovyae7rjh1a" path="res://Lilita_One,Sansation/Sansation/Sansation-Bold.ttf" id="5_302v5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wqf0i"]
 font = ExtResource("2_1kbpl")
@@ -14,26 +15,129 @@ shadow_size = 3
 
 [sub_resource type="LabelSettings" id="LabelSettings_o4tej"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_cc514"]
-font = ExtResource("2_1kbpl")
-font_size = 19
-
 [sub_resource type="LabelSettings" id="LabelSettings_hjs4i"]
-font = ExtResource("2_1kbpl")
+font = ExtResource("5_302v5")
 font_size = 40
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ulyy0"]
-bg_color = Color(0.829417, 0.0837863, 0.218259, 1)
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+[sub_resource type="Animation" id="Animation_40pyh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Line2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Line2D2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect3:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.0509804)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.0509804)]
+}
+
+[sub_resource type="Animation" id="Animation_fouxw"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Line2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Line2D2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.266667, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect3:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.133333, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.0509804), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.133333, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.0509804), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pdnx3"]
+_data = {
+"RESET": SubResource("Animation_40pyh"),
+"open": SubResource("Animation_fouxw")
+}
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_l2d3o")
 
 [node name="Cover" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(600, 346)
 texture = ExtResource("1_nktx7")
+
+[node name="Newcover" type="Sprite2D" parent="."]
+position = Vector2(599, 344)
+texture = ExtResource("3_hoqtx")
 
 [node name="title" type="Label" parent="."]
 offset_left = 32.0
@@ -48,7 +152,7 @@ offset_left = 32.0
 offset_top = 216.0
 offset_right = 786.0
 offset_bottom = 297.0
-text = "Alpha version 0.2"
+text = "version 1.0"
 label_settings = SubResource("LabelSettings_o4tej")
 
 [node name="author" type="Label" parent="."]
@@ -58,14 +162,6 @@ offset_right = 1810.0
 offset_bottom = 713.0
 text = "By AuraCrush"
 label_settings = SubResource("LabelSettings_o4tej")
-
-[node name="Label" type="Label" parent="."]
-offset_left = 120.0
-offset_top = 528.0
-offset_right = 874.0
-offset_bottom = 609.0
-text = "Camera Senstivity:"
-label_settings = SubResource("LabelSettings_cc514")
 
 [node name="kills" type="Label" parent="."]
 offset_left = 824.0
@@ -81,22 +177,110 @@ offset_top = 384.0
 offset_right = 440.0
 offset_bottom = 440.0
 theme = ExtResource("4_hs25v")
-theme_override_fonts/font = ExtResource("2_1kbpl")
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_ulyy0")
 text = "PLAY"
 
-[node name="HSlider" type="HSlider" parent="."]
-offset_left = 120.0
-offset_top = 568.0
-offset_right = 448.0
-offset_bottom = 584.0
-min_value = 4.0
-max_value = 20.0
-value = 8.0
+[node name="settings" type="Button" parent="."]
+offset_left = 112.0
+offset_top = 475.0
+offset_right = 440.0
+offset_bottom = 531.0
+theme = ExtResource("4_hs25v")
+text = "SETTINGS"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_3io5k")
-autoplay = true
+[node name="delay" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="overlay" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="overlay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.121569, 0.121569, 0.121569, 0.713726)
+
+[node name="ColorRect3" type="ColorRect" parent="overlay"]
+modulate = Color(1, 1, 1, 0.0509804)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -7.0
+offset_right = 145.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.45098)
+
+[node name="ColorRect2" type="ColorRect" parent="overlay"]
+modulate = Color(1, 1, 1, 0.0509804)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -7.0
+offset_right = 144.0
+offset_bottom = 169.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.0865045, 0.256657, 0.25993, 0.862745)
+
+[node name="Button1" type="Button" parent="overlay/ColorRect2"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 14.0
+offset_right = 222.0
+offset_bottom = 70.0
+theme = ExtResource("4_hs25v")
+text = "BABY MODE"
+
+[node name="Button2" type="Button" parent="overlay/ColorRect2"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 97.0
+offset_right = 222.0
+offset_bottom = 153.0
+theme = ExtResource("4_hs25v")
+text = "NORMAL MODE"
+
+[node name="e" type="Button" parent="overlay/ColorRect2"]
+layout_mode = 0
+offset_left = -10.0
+offset_top = -8.0
+offset_right = 23.0
+offset_bottom = 17.0
+theme = ExtResource("4_hs25v")
+text = "X"
+
+[node name="Line2D" type="Line2D" parent="overlay"]
+modulate = Color(1, 1, 1, 0)
+points = PackedVector2Array(314, 378, 314, 290, 616, 290)
+width = 5.0
+default_color = Color(0.105882, 0.435294, 0.462745, 0.513726)
+
+[node name="Line2D2" type="Line2D" parent="overlay"]
+modulate = Color(1, 1, 1, 0)
+points = PackedVector2Array(610, 335, 610, 289)
+width = 5.0
+default_color = Color(0.105882, 0.435294, 0.462745, 0.513726)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="overlay"]
+libraries = {
+"": SubResource("AnimationLibrary_pdnx3")
+}
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="settings" to="." method="_on_settings_pressed"]
+[connection signal="timeout" from="delay" to="." method="_on_delay_timeout"]
+[connection signal="pressed" from="overlay/ColorRect2/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="overlay/ColorRect2/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="overlay/ColorRect2/e" to="." method="_on_e_pressed"]

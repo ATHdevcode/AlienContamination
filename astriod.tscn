@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://kjgpivlo7nol"]
+[gd_scene load_steps=11 format=3 uid="uid://kjgpivlo7nol"]
 
 [ext_resource type="Texture2D" uid="uid://o6adprb373f4" path="res://assets/fire_01.png" id="1_nof33"]
 [ext_resource type="Script" path="res://astriod.gd" id="1_qswud"]
@@ -24,6 +24,42 @@ rings = 4
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_to6vq"]
 radius = 2.38366
+
+[sub_resource type="Animation" id="Animation_qcsyo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CPUParticles3D:mesh:material:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.791513, 0, 0.116697, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_stv71"]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CPUParticles3D:mesh:material:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.791513, 0, 0.116697, 1), Color(0.792, 0, 0.117, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fli4g"]
+_data = {
+"RESET": SubResource("Animation_qcsyo"),
+"fade": SubResource("Animation_stv71")
+}
 
 [node name="Astriod" type="Area3D" groups=["aster"]]
 script = ExtResource("1_qswud")
@@ -70,10 +106,15 @@ initial_velocity_min = 5.0
 initial_velocity_max = 15.0
 
 [node name="last" type="Timer" parent="."]
-wait_time = 0.8
+wait_time = 1.5
 one_shot = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_to6vq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fli4g")
+}
 
 [connection signal="timeout" from="last" to="." method="_on_last_timeout"]

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b7t3hpppr8hld"
 path.s3tc="res://.godot/imported/Poliigon_MetalRust_7642_BaseColor.jpg-68b5747890a20098051680cd0ff1ebfc.s3tc.ctex"
+path.etc2="res://.godot/imported/Poliigon_MetalRust_7642_BaseColor.jpg-68b5747890a20098051680cd0ff1ebfc.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/Poliigon_MetalRust_7642 (1)/256/Poliigon_MetalRust_7642_BaseColor.jpg"
-dest_files=["res://.godot/imported/Poliigon_MetalRust_7642_BaseColor.jpg-68b5747890a20098051680cd0ff1ebfc.s3tc.ctex"]
+dest_files=["res://.godot/imported/Poliigon_MetalRust_7642_BaseColor.jpg-68b5747890a20098051680cd0ff1ebfc.s3tc.ctex", "res://.godot/imported/Poliigon_MetalRust_7642_BaseColor.jpg-68b5747890a20098051680cd0ff1ebfc.etc2.ctex"]
 
 [params]
 

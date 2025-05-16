@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dibjg6j0olih2"]
+[gd_scene load_steps=16 format=3 uid="uid://dibjg6j0olih2"]
 
 [ext_resource type="Script" path="res://kroto_fall.gd" id="1_rsucj"]
 [ext_resource type="Texture2D" uid="uid://h3urmcse47iw" path="res://assets/textures/Poliigon_MetalGalvanizedZinc_7184/512/Poliigon_MetalGalvanizedZinc_7184_BaseColor.jpg" id="2_a8f4o"]
@@ -22,6 +22,10 @@ metallic = 0.29
 normal_enabled = true
 normal_texture = ExtResource("3_jdx52")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4vtcn"]
+transparency = 1
+albedo_color = Color(0.453, 0.08, 0.725, 0)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mfj7s"]
 albedo_color = Color(2, 0.037, 0.14, 1)
 
@@ -38,6 +42,44 @@ font = ExtResource("5_jk1tj")
 [sub_resource type="SphereShape3D" id="SphereShape3D_ryhyl"]
 radius = 1.31958
 
+[sub_resource type="Animation" id="Animation_4gbp1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGCombiner3D:material_overlay:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.453, 0.08, 0.725, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qoiue"]
+resource_name = "weak"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGCombiner3D:material_overlay:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.453, 0.08, 0.725, 0), Color(0.453, 0.08, 0.725, 0.779)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p8wlt"]
+_data = {
+"RESET": SubResource("Animation_4gbp1"),
+"weak": SubResource("Animation_qoiue")
+}
+
 [node name="KrotoFALL" type="CharacterBody3D"]
 script = ExtResource("1_rsucj")
 
@@ -48,6 +90,7 @@ material = SubResource("StandardMaterial3D_yjmdm")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 material_override = SubResource("StandardMaterial3D_kueac")
+material_overlay = SubResource("StandardMaterial3D_4vtcn")
 use_collision = true
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
@@ -102,9 +145,13 @@ transform = Transform3D(0.250127, 0, -0.968213, 0, 1, 0, 0.968213, 0, 0.250127, 
 
 [node name="fall" type="Timer" parent="."]
 wait_time = 4.0
+autostart = true
 
 [node name="fall2" type="Timer" parent="."]
 wait_time = 3.5
+
+[node name="fall3" type="Timer" parent="."]
+wait_time = 3.1
 
 [node name="amt" type="Timer" parent="."]
 wait_time = 5.0
@@ -115,8 +162,9 @@ autostart = true
 [node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
 offset_right = 288.0
 offset_bottom = 32.0
+mouse_filter = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_82xmq")
-max_value = 500.0
+max_value = 650.0
 value = 70.0
 show_percentage = false
 
@@ -132,18 +180,46 @@ label_settings = SubResource("LabelSettings_c6ux7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.531037, 3.50191, -0.963083)
 
 [node name="supper" type="Timer" parent="."]
-wait_time = 12.0
-autostart = true
+wait_time = 18.0
 
 [node name="hita" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="hita"]
 shape = SubResource("SphereShape3D_ryhyl")
 
+[node name="sup" type="Timer" parent="."]
+wait_time = 18.0
+one_shot = true
+autostart = true
+
+[node name="secfall" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="thir" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_p8wlt")
+}
+
+[node name="weak" type="Timer" parent="."]
+wait_time = 11.0
+one_shot = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
 [connection signal="timeout" from="fall" to="." method="_on_fall_timeout"]
 [connection signal="timeout" from="fall2" to="." method="_on_fall_2_timeout"]
+[connection signal="timeout" from="fall3" to="." method="_on_fall_3_timeout"]
 [connection signal="timeout" from="amt" to="." method="_on_amt_timeout"]
 [connection signal="timeout" from="supper" to="." method="_on_supper_timeout"]
 [connection signal="area_entered" from="hita" to="." method="_on_hita_area_entered"]
+[connection signal="timeout" from="sup" to="." method="_on_sup_timeout"]
+[connection signal="timeout" from="secfall" to="." method="_on_secfall_timeout"]
+[connection signal="timeout" from="thir" to="." method="_on_thir_timeout"]
+[connection signal="timeout" from="weak" to="." method="_on_weak_timeout"]

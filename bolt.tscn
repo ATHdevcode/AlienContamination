@@ -1,0 +1,81 @@
+[gd_scene load_steps=10 format=3 uid="uid://cqs4exb51ecoa"]
+
+[ext_resource type="Script" path="res://bolt.gd" id="1_xq5ms"]
+[ext_resource type="Texture2D" uid="uid://dlc8sx4jk4vab" path="res://assets/scorch_01.png" id="2_uwmov"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1682s"]
+shading_mode = 0
+albedo_color = Color(0, 2, 0.505, 1)
+refraction_enabled = true
+disable_receive_shadows = true
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dx4ls"]
+load_path = "res://.godot/imported/spark_04.png-b1d642840a6928567382cf8d41351569.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ek2m6"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+albedo_color = Color(0.564, 2, 0.36, 1)
+albedo_texture = SubResource("CompressedTexture2D_dx4ls")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_8qp1u"]
+material = SubResource("StandardMaterial3D_ek2m6")
+size = Vector2(1.5, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hsqva"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.041, 2, 0.421, 1)
+albedo_texture = ExtResource("2_uwmov")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_u03n2"]
+material = SubResource("StandardMaterial3D_hsqva")
+size = Vector2(1.5, 1.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_55jx4"]
+radius = 0.61176
+
+[node name="bolt" type="Area3D" groups=["bolt"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.525995, 0)
+script = ExtResource("1_xq5ms")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+radius = 0.2
+material = SubResource("StandardMaterial3D_1682s")
+
+[node name="CPUParticles3D2" type="CPUParticles3D" parent="."]
+amount = 20
+lifetime = 1.5
+mesh = SubResource("QuadMesh_8qp1u")
+emission_shape = 1
+emission_sphere_radius = 0.5
+gravity = Vector3(0, 0, 0)
+angular_velocity_min = 10.0
+angular_velocity_max = 10.0
+radial_accel_min = -1.0
+radial_accel_max = -1.0
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+mesh = SubResource("QuadMesh_u03n2")
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -1.0
+linear_accel_max = -1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_55jx4")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[node name="activate" type="Timer" parent="."]
+wait_time = 0.7
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="activate" to="." method="_on_activate_timeout"]
